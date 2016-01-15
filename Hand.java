@@ -66,16 +66,16 @@ public class Hand {
 		if(newTile.value >= 2)
 			 if(allTiles.get(newTile.suit).contains(new Tile(newTile.suit, newTile.value, newTile.index - 1)))
 				 if(allTiles.get(newTile.suit).contains(new Tile(newTile.suit, newTile.value, newTile.index - 2)))
-					flag |= 0x001;
+					flag |= 0b001;
 		if(newTile.value <= 7)
 			 if(allTiles.get(newTile.suit).contains(new Tile(newTile.suit, newTile.value, newTile.index + 1)))
 				 if(allTiles.get(newTile.suit).contains(new Tile(newTile.suit, newTile.value, newTile.index + 2)))
-					flag |= 0x100;
+					flag |= 0b100;
 
 		if(newTile.value <= 8 && newTile.value >= 1)
 			 if(allTiles.get(newTile.suit).contains(new Tile(newTile.suit, newTile.value, newTile.index - 1)))
 				 if(allTiles.get(newTile.suit).contains(new Tile(newTile.suit, newTile.value, newTile.index + 1)))
-					flag |= 0x010;
+					flag |= 0b010;
 				
 		return flag;
 	}
