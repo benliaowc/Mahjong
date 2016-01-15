@@ -29,17 +29,17 @@ public class Tile {
 	
 	public String toString(){
 		if(suit == 3)
-			return word_dictionary[value] + " " + index;
+			return word_dictionary[value];
 		else
-			return value_dictionary[value] + suit_dictionary[suit] + " " + index;
+			return value_dictionary[value] + suit_dictionary[suit];
 	}
 
 	@Override
 	public boolean equals(Object that) {
-		if(that instanceof Tile) {
-			return this.index == ((Tile)that).index;
-		}
-		return false;
+	if(that instanceof Tile) {
+		return this.index == ((Tile)that).index;
+	}
+	return false;
     }
 	
 }
