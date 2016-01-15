@@ -33,5 +33,13 @@ public class Tile {
 		else
 			return value_dictionary[value] + suit_dictionary[suit] + " " + index;
 	}
+
+	@Override
+	public boolean equals(Object that) {
+		if(that instanceof Tile) {
+			return this.index == ((Tile)that).index;
+		}
+		return false;
+    }
 	
 }
