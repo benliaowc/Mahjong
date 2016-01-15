@@ -8,7 +8,7 @@ public class Shuffler {
 	}
 
 	Shuffler(int N){
-		setSize(N);
+		setSize(N);	
 	}
 	
 	public int[] index;
@@ -49,6 +49,9 @@ public class Shuffler {
 		Tile res;				
 		int next = index[count++];
 		if (count > index.length - left){
+			permuteIndex();
+			count = 0;
+			return null;
 		}
 		int suit = next/36;
 		if(suit == 3){
