@@ -54,11 +54,9 @@ public class Shuffler {
 			return null;
 		}
 		int suit = next/36;
-		if(suit == 3){
-			res = new Tile(suit, (next % 36)/7, next);
-		}else{
-			res = new Tile(suit, (next % 36)/9, next);
-		}		
+	
+		res = new Tile(suit, (next % 36)/4, next/4);
+		
 		return res;
 	}
 }
