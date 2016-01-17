@@ -51,6 +51,7 @@ public class Hand {
 		int index = allTiles.get(newTile.suit).indexOf(newTile);
 		if(index >= 0) allTiles.get(newTile.suit).get(index).addSize(1);
 		else allTiles.get(newTile.suit).add(newTile);
+		sort();
 	}
 	
 	public boolean discard(Tile discardTile){ //If no this tile in hand return false (An error)
@@ -61,6 +62,7 @@ public class Hand {
 			return true;			
 		}
 		allTiles.get(discardTile.suit).remove(index);
+		sort();
 		return true;
 	}
 
@@ -75,7 +77,7 @@ public class Hand {
 
 		if(newIndex >= 0) allTiles.get(newTile.suit).get(newIndex).addSize(1);
 		else allTiles.get(newTile.suit).add(newTile);
-
+		sort();
 		return true;
 	}
 

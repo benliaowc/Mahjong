@@ -44,10 +44,21 @@ public class test {
 		System.out.println(H);
 		
 	//	H.sort();
-		ArrayList<Tile> judge = H.tingable(new Tile(1,0,9));
+		ArrayList<Tile> judge = H.tingable(new Tile(0,8,8));
 		if(judge == null) System.out.println("HU!");
 		else if(judge.isEmpty()) System.out.println("no Ting!");
 		else System.out.println(judge);
+		
+		H.replace(new Tile(0,8,8), new Tile(1,0,9));
+
+		System.out.println(H);
+
+		judge = H.tingable(new Tile(0,5,5));
+		if(judge == null) System.out.println("HU!");
+		else if(judge.isEmpty()) System.out.println("no Ting!");
+		else System.out.println(judge);
+
+		System.out.println(H);
 
 		//System.out.println(H);
 
