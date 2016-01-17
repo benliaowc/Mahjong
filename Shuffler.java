@@ -42,8 +42,8 @@ public class Shuffler {
 	}
 
 	public void ackKong(){
-	left++;
-}
+		left++;
+	}
 
 	public Tile getNext(){		
 		Tile res;				

@@ -8,32 +8,48 @@ public class test {
 	private static ArrayList<Tile> playerHand = new ArrayList<Tile>();
 
 	public static void main(String args[]){
+		Tile t;
+		Tile anotherT;
+
 		//Tile a = new Tile(0, 3, 3);
-
-		Tile t = new Tile(0,0,0);			
-		H.add(t);
-		Tile anotherT = new Tile(t.suit,t.value,t.index);
-		playerHand.add(anotherT);
-
-		t = new Tile(0,0,0);			
-		H.add(t);
-		anotherT = new Tile(t.suit,t.value,t.index);
-		playerHand.add(anotherT);
-
-
-		for(int i = 0;i < 11;i++){
+		
+		/*for(int i = 0;i < 10;i++){
 			t = new Tile(i/9,i%9,i);			
 			H.add(t);
 			anotherT = new Tile(t.suit,t.value,t.index);
 			playerHand.add(anotherT);
-		}
+		}*/
+		H.add(new Tile(0,0,0));
+		H.add(new Tile(0,1,1));
+		H.add(new Tile(0,2,2));
+		H.add(new Tile(0,3,3));
+		H.add(new Tile(0,5,5));
+		H.add(new Tile(0,6,6));
+		H.add(new Tile(0,8,8));
+		H.add(new Tile(0,7,7));
+		H.add(new Tile(0,4,4));
+		H.add(new Tile(1,0,9));
+		H.add(new Tile(1,1,10));
+		H.add(new Tile(1,0,9));
+		H.add(new Tile(1,2,11));
+		//H.sort();
+		/*for(int i = 0;i < 13;i++){
+			t = test.getNext();			
+			H.add(t);
+			anotherT = new Tile(t.suit,t.value,t.index);
+			playerHand.add(anotherT);
+		}*/
 
-
+			
 		System.out.println(H);
+		
+	//	H.sort();
+		ArrayList<Tile> judge = H.tingable(new Tile(1,0,9));
+		if(judge == null) System.out.println("HU!");
+		else if(judge.isEmpty()) System.out.println("no Ting!");
+		else System.out.println(judge);
 
-		System.out.println(H.chowable(new Tile(0,7,7)));
-		System.out.println(H.pongable(new Tile(0,0,0)));
-		System.out.println(H.kongable(new Tile(0,0,0)));
+		//System.out.println(H);
 
 
 
@@ -56,3 +72,5 @@ public class test {
 	}
 	
 }
+
+
