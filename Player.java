@@ -3,9 +3,11 @@ import java.util.*;
 
 public abstract class Player{
 	private String name;
+	private int score;
 	private Hand hand;
-	public Player(String s){
+	public Player(String s, int i){
 		name = s;
+		score = i;
 	}
 
 	@Override
