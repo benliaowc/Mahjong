@@ -3,7 +3,7 @@ import java.util.*;
 
 public abstract class Player{
 	private String name;
-	public Player(String s, int i){
+	public Player(String s){
 		name = s;
 	}
 
@@ -16,11 +16,11 @@ public abstract class Player{
 	public abstract void initTiles(ArrayList<Tile> t);
 
 	//ask the player whether to draw/chow/pong/kong/hu or not
-	public abstract boolean doDraw(Tile t, ArrayList<ArrayList<Tile>> currentTable);
-	public abstract boolean doChow(Tile t, ArrayList<ArrayList<Tile>> currentTable);
-	public abstract boolean doPong(Tile t, ArrayList<ArrayList<Tile>> currentTable);
-	public abstract boolean doKong(Tile t, ArrayList<ArrayList<Tile>> currentTable);
-	public abstract boolean doHu(Tile t, ArrayList<ArrayList<Tile>> currentTable);
+	public abstract boolean doDraw(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
+	public abstract boolean doChow(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
+	public abstract boolean doPong(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
+	public abstract boolean doKong(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
+	public abstract boolean doHu(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
 
 	//if chow/pong failed, use this method to notify player
 	public abstract void failed();
