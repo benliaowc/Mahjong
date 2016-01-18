@@ -15,11 +15,12 @@ public abstract class Player{
 	//the 13 tiles at the beginning
 	public abstract void initTiles(ArrayList<Tile> t);
 
-	//ask the player whether to draw/chow/pong/kong/hu or not
+	//ask the player whether to draw/chow/pong/kong/reach/hu or not
 	public abstract boolean doDraw(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
 	public abstract boolean doChow(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
 	public abstract boolean doPong(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
 	public abstract boolean doKong(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
+	public abstract boolean doReach(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
 	public abstract boolean doHu(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
 
 	//if chow/pong failed, use this method to notify player

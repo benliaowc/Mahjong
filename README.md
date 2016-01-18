@@ -12,8 +12,9 @@
 + `public abstract boolean doChow(Tile tile, ArrayList<ArrayList<Tile>> currentTable);`
 + `public abstract boolean doPong(Tile tile, ArrayList<ArrayList<Tile>> currentTable);`
 + `public abstract boolean doKong(Tile tile, ArrayList<ArrayList<Tile>> currentTable);`
++ `public abstract boolean doReach(Tile tile, ArrayList<ArrayList<Tile>> currentTable);`
 + `public abstract boolean doHu(Tile tile, ArrayList<ArrayList<Tile>> currentTable);`
-	+ ask the player whether to draw/chow/pong/kong/hu or not
+	+ ask the player whether to draw/chow/pong/kong/reach/hu or not
 	+ tile: the tile the player drawed, or can be chow/pong/kong/hu
 	+ currentTable: each list is other players' face-up or discarded tiles
 + `public abstract void failed();`
