@@ -1,35 +1,35 @@
 # foop15_final32
 
 ## Player
-### public Player(String s)
+    public Player(String s)
 + Constructor
-+ String s: name of the player
++ s: name of the player
 
-### public String toString()
+    public String toString()
 + return "Hi, I am Player "+name+".";
 
-### public abstract void initTiles(ArrayList<Tile> t);
-+ ArrawList<Tile> t: the 13 tiles at the beginning
+    public abstract void initTiles(ArrayList<Tile> t);
++ tile: the 13 tiles at the beginning
 
-### public abstract boolean doDraw(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
-### public abstract boolean doChow(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
-### public abstract boolean doPong(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
-### public abstract boolean doKong(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
-### public abstract boolean doHu(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
+    public abstract boolean doDraw(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
+    public abstract boolean doChow(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
+    public abstract boolean doPong(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
+    public abstract boolean doKong(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
+    public abstract boolean doHu(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
 + ask the player whether to draw/chow/pong/kong/hu or not
-+ Tile tile: the tile the player drawed, or can be chow/pong/kong/hu
-+ ArrayList<ArrayList<Tile>> currentTable: each ArrayList<Tile> is other players' face-up or discarded tiles
++ tile: the tile the player drawed, or can be chow/pong/kong/hu
++ currentTable: each list is other players' face-up or discarded tiles
 
-### public abstract void failed();
+    public abstract void failed();
 + if chow/pong failed(pong by other players?), use this method to notify player
 
-### public abstract Tile replace(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
+    public abstract Tile replace(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
 + draw/chow/pong success or doesn't want to hu. given the new tile and ask the player which tile to discard.
-+ Tile tile: the new tile
++ tile: the new tile
 + return the tile the player wants to discard or null if the player wants to Kong(Ang Kong or Ming Kong)
 
-### public abstract Tile kong(ArrayList<ArrayList<Tile>> currentTable);
+    public abstract Tile kong(ArrayList<ArrayList<Tile>> currentTable);
 + ask the player which to kong
 + should call replace() after kong
-+ ArrayList<ArrayList<Tile>> currentTable: each ArrayList<Tile> is other players' face-up or discarded tiles
++ currentTable: each list is other players' face-up or discarded tiles
 + return the tile the player wants to kong
