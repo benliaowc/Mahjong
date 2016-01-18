@@ -19,6 +19,17 @@ public abstract class Player{
 	public void initHand(ArrayList<ArrayList<Tile>> allTiles){
 		hand = new Hand(allTiles);
 	}
+	public abstract Action doSomething(int from, Tile tile);//from 0自摸 1下一家 2對家 3上一家
+	//	if(from == 0){//摸, 立直 加槓, 暗槓
+	//		
+	//	}
+	//	else if(from == 3){//吃, 碰, 槓, 榮
+	//	
+	//	}
+	//	else{//碰, 槓, 榮
+	//	
+	//	}
+	public abstract void failed();//上一個動作失敗了
 
 //	//ask the player whether to draw/chow/pong/kong/reach/hu or not
 //	public abstract boolean doDraw(Tile tile, ArrayList<ArrayList<Tile>> currentTable);
