@@ -3,9 +3,9 @@ import java.util.*;
 
 public class Tile implements Comparable<Tile>{
 	
-	private String[] suit_dictionary = {"¸U", "µ©", "±ø"};
-	private String[] value_dictionary = {"¤@", "¤G", "¤T", "¥|", "¤­", "¤»", "¤C", "¤K", "¤E"};
-	private String[] word_dictionary = {"ªF", "«n", "¦è", "¥_", "¤¤", "µo", "¥Õ"};
+	private String[] suit_dictionary = {"è¬", "ç­’", "æ¢"};
+	private String[] value_dictionary = {"ä¸€", "äºŒ", "ä¸‰", "å››", "äº”", "å…­", "ä¸ƒ", "å…«", "ä¹"};
+	private String[] word_dictionary = {"æ±", "å—", "è¥¿", "åŒ—", "ä¸­", "ç™¼", "ç™½"};
 	
 	public final int suit;
 	public final int value;
