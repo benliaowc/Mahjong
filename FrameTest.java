@@ -957,6 +957,11 @@ class FrameTest extends JFrame {
 		else if(num == 2)
 			leftPlayerHandTile = temp;
 	}
+	public void resetChoice()
+	{
+		for(int i = 0; i < 5; i++)
+			choice[i] = false;
+	}
 	
 	
 	public void addTestHand()
