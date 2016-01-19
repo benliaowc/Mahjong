@@ -33,14 +33,16 @@ public class Board{
 		GUI = new comGUI();
 		Player[] player = new Player[4];
 		ArrayList<ArrayList<Tile>> allTiles = new ArrayList<ArrayList<Tile>>();//0萬 1筒 2條 3字
-		//GUI.initPlayerGUI("PlayerGUI", initScore);
-		//player[0] = GUI.player;
-		for(int i = 0; i < 4 ; i++){
+		GUI.initPlayerGUI("PlayerGUI", initScore, GUI);
+		player[0] = GUI.player;
+		for(int i = 1; i < 4 ; i++){
 			player[i] = new AI("PlayerAI"+i, initScore);
 		}
 		for(int i = 0 ; i < 4 ; i++){
 			allTiles.add(new ArrayList<Tile>());
 		}
+		GUI.renewGUI();
+		GUI.showGUI();
 		while(true){
 
 			//init 4 players' hands
