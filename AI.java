@@ -1,6 +1,9 @@
 import java.lang.*;
 import java.util.*;
 
+enum Status {
+	FREE, RICHI, WIN
+}
 public class AI extends Player{
 
 	private final int DRAW = 0 ;
@@ -13,12 +16,14 @@ public class AI extends Player{
 	private final int RON = 7 ;
 	private final int HU = 8 ;
 	private int exposed ;
+	private Status status ;
 	private Action prevAct ;
 
 	public AI(String name, int score){
 		super(name, score ) ;
 		exposed = 0 ;
-		prevAct = new Action(HU, new ArrayList<Tile>()) ;
+		status = Status.FREE ;
+		prevAct = null ;
 	}
 
 	//ask the player whether to draw/chow/pong/kong/reach/hu or not
@@ -222,14 +227,15 @@ public class AI extends Player{
 		return res ;
 	}
 
-	private Action win(int status){ /* status: RON or HU */
+	private Action win(int actionType){ /* status: RON or HU */
 		ArrayList<Tile> allTiles = new ArrayList<Tile>() ;
 		for( int i = 0 ; i <= 3 ; i++ ){
 			ArrayList<Tile> tmp = hand.getAll().get(i) ;
 			for( int t = 0 ; t < tmp.size() ; t++ )
 				allTiles.add( tmp.get(t) ) ;
 		}
-		prevAct = new Action(status, allTiles) ;
+		status = Status.WIN ;
+		prevAct = new Action(actionType, allTiles) ;
 		return prevAct ;
 	}
 
@@ -237,6 +243,13 @@ public class AI extends Player{
 		if(from == 0){ //draw, richi, add kong, private kong, hu
 			if( doHu(tile) ) /* huable */
 				return win(HU) ;
+			else if( status == Status.RICHI ){
+				ArrayList discardList = new ArrayList<Tile>() ;
+				discardList.add( tile ) ;
+
+				prevAct = new Action(DRAW, discardList) ;
+				return prevAct ;
+			}
 			else if( doRichi(tile) ){
 				ArrayList<Tile> tingTile = hand.tingable(tile) ;
 				ArrayList<Tile> discardList = new ArrayList<Tile>() ;
@@ -244,6 +257,7 @@ public class AI extends Player{
 				discardList.add( discardTile ) ;
 				hand.discard( discardTile ) ;
 
+				status = Status.RICHI ;
 				prevAct = new Action(RICHI, discardList) ;
 			       	return prevAct ;	
 			}
@@ -261,6 +275,10 @@ public class AI extends Player{
 		else if(from == 3){//chow, pong, kong, ron
 			if( doHu(tile) )
 				return win(RON) ;
+			else if( status == Status.RICHI ){
+				prevAct = null ;
+				return prevAct ;
+			}
 			else if( doChow(tile) ){
 				int flag = hand.chowable(tile) ;
 				if( (flag & 0b001) > 0 ){
@@ -341,6 +359,10 @@ public class AI extends Player{
 		else{// pong, kong, ron
 			if( doHu(tile) ) /* huable */
 				return win(RON) ;
+			else if( status == Status.RICHI ){
+				prevAct = null ;
+				return prevAct ;
+			}
 			else if( doPong(tile) ){
 				hand.discard(tile) ;
 				hand.discard(tile) ;
@@ -369,5 +391,11 @@ public class AI extends Player{
 			exposed-- ;
 		for( int i = 0 ; i < prevAct.tiles.size() ; i++ )
 			hand.add( prevAct.tiles.get(i) ) ;
+	}
+
+	public void GameOver(){
+		exposed = 0 ;
+		status = Status.FREE ;
+		prevAct = null ;
 	}
 }
