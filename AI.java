@@ -57,7 +57,6 @@ public class AI extends Player{
 			if( tmp.getAll().get(tile.suit).get(j).equals(tile) )
 				return false ;
 		}
-		exposed++ ;
 		return true ;
 	}
 
@@ -96,10 +95,8 @@ public class AI extends Player{
 		/* check if the tile you want to pong is left and size >= 3 or not */
 		s = tmp.getAll().get(tile.suit).size() ;
 		for( int j = 0 ; j < s ; j++ ){
-			if( tmp.getAll().get(tile.suit).get(j).equals(tile) && tmp.getAll().get(tile.suit).get(j).getSize() >= 3 ){
-				exposed++ ;
+			if( tmp.getAll().get(tile.suit).get(j).equals(tile) && tmp.getAll().get(tile.suit).get(j).getSize() >= 3 )
 				return true ;
-			}
 		}
 		return false ;
 	}
@@ -248,6 +245,7 @@ public class AI extends Player{
 					tmp.discard(new Tile(tile.suit, tile.value, tile.index-2)) ;
 					tmp.discard(new Tile(tile.suit, tile.value, tile.index-1)) ;
 					tmp.discard(tile) ;
+					exposed++ ;
 					ArrayList<Tile> discard = new ArrayList<Tile>() ;
 					discard.add( decideDiscard(tmp) ) ;
 					discard.add(new Tile(tile.suit, tile.value, tile.index-2)) ;
@@ -259,6 +257,7 @@ public class AI extends Player{
 					tmp.discard(new Tile(tile.suit, tile.value, tile.index-1)) ;
 					tmp.discard(tile) ;
 					tmp.discard(new Tile(tile.suit, tile.value, tile.index+1)) ;
+					exposed++ ;
 					ArrayList<Tile> discard = new ArrayList<Tile>() ;
 					discard.add( decideDiscard(tmp) ) ;
 					discard.add(new Tile(tile.suit, tile.value, tile.index-1)) ;
@@ -270,6 +269,7 @@ public class AI extends Player{
 					tmp.discard(tile) ;
 					tmp.discard(new Tile(tile.suit, tile.value, tile.index+1)) ;
 					tmp.discard(new Tile(tile.suit, tile.value, tile.index+2)) ;
+					exposed++ ;
 					ArrayList<Tile> discard = new ArrayList<Tile>() ;
 					discard.add( decideDiscard(tmp) ) ;
 					discard.add(tile) ;
@@ -283,6 +283,7 @@ public class AI extends Player{
 				tmp.discard(tile) ;
 				tmp.discard(tile) ;
 				tmp.discard(tile) ;
+				exposed++ ;
 				ArrayList<Tile> discard = new ArrayList<Tile>() ;
 				discard.add( decideDiscard(tmp) ) ;
 				discard.add(tile) ;
@@ -301,6 +302,7 @@ public class AI extends Player{
 				tmp.discard(tile) ;
 				tmp.discard(tile) ;
 				tmp.discard(tile) ;
+				exposed++ ;
 				ArrayList<Tile> discard = new ArrayList<Tile>() ;
 				discard.add( decideDiscard(tmp) ) ;
 				discard.add(tile) ;
