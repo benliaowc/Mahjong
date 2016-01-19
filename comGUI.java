@@ -147,6 +147,7 @@ class comGUI
 		private ArrayList<Tile> discardTile;
 		private ArrayList<Tile> pushTile;
 		private boolean[] choice;
+		private int action;
 		
 		comGUI c;
 		
@@ -191,7 +192,7 @@ class comGUI
 			doSelect(from, newTile);
 			
 			frame.changeEnable(false);
-			return new Action(0, new ArrayList<Tile>());
+			return new Action(action, discardTile);
 		}
 		
 		
@@ -218,7 +219,7 @@ class comGUI
 			
 			if(temp == null)
 				b[4] = true;
-			else if(temp.size() != 0){
+			else if(temp.size() != 0 && from == 0){
 				//b[3] = true;
 			}
 			frame.setThrower(from, newTile);
@@ -238,8 +239,10 @@ class comGUI
 					}
 				});
 			}
+			else
+				action = 0;
 			waitOK();
-			selectProcess(tempType, newTile);
+			selectProcess(tempType, newTile, from);
 		}
 		private void waitOK()
 		{
@@ -268,11 +271,12 @@ class comGUI
 			return b;
 		}*/
 		
-		private void selectProcess(int chewType, Tile newTile)
+		private void selectProcess(int chewType, Tile newTile, int from)
 		{
 			discardTile = new ArrayList<Tile>();
 			discardTile.add(new Tile(0));
 			if(choice[0]){
+				action = 1;
 				ArrayList<ArrayList<Tile>> chowOption = getChewChoice(chewType, newTile);
 				if(chowOption.size() == 1){
 					for(int i = 0; i < 3; i++)
@@ -284,19 +288,27 @@ class comGUI
 				}
 			}
 			else if(choice[1]){
+				action = 2;
 				for(int i = 0; i < 3; i++)
 					discardTile.add(newTile.same());
 			}
 			else if(choice[2]){
+				action = 3;
+				if(from == 0)
+					action = 5;
 				for(int i = 0; i < 4; i++)
 					discardTile.add(newTile.same());
 			}
 			else if(choice[3]){
+				action = 6;
 				discardTile.set(0, pushTile.get(0));
 				return;
 			}
 			else if(choice[4])
 			{
+				action = 7;
+				if(from == 0)
+					action = 8;
 				win();
 				getHand();
 				discardTile.set(0, myHand.get(0));
