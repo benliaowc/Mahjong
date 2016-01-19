@@ -226,6 +226,7 @@ class comGUI
 			//System.out.println(from +" "+ newTile);
 			//b[0] = true;
 			//tempType = 7;
+			b[4] = true;
 			frame.setChowOption(tempType, getChewChoice(tempType, newTile));
 			if(b[0] || b[1] || b[2] || b[3] || b[4]){
 				frame.setSelect(b);
@@ -309,7 +310,6 @@ class comGUI
 				action = 7;
 				if(from == 0)
 					action = 8;
-				win();
 				getHand();
 				discardTile.set(0, myHand.get(0));
 				for(int i = 1; i < myHand.size(); i++)
@@ -371,14 +371,21 @@ class comGUI
 						myHand.add(new Tile(t.suit, t.value, t.index));
 					}
 		}
-		private void win()
-		{
-			frame.hu(false);
-		}
 		
 		public void GameOver()
 		{
-			
+			EventQueue.invokeLater(new Runnable() {
+				public void run() {
+					try {
+						if(action == 7 || action == 8)
+							frame.hu(true);
+						else
+							frame.hu(false);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			});
 		}
 		
 		
