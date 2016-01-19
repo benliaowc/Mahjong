@@ -292,8 +292,8 @@ public class AI extends Player{
 				hand.add(tile) ;
 				prevTile = tile.same() ;
 				if( (flag & 0b001) > 0 ){
-					hand.discard(new Tile(tile.suit, tile.value, tile.index-2)) ;
-					hand.discard(new Tile(tile.suit, tile.value, tile.index-1)) ;
+					hand.discard(new Tile(tile.index-2)) ;
+					hand.discard(new Tile(tile.index-1)) ;
 					hand.discard(tile) ;
 					exposed++ ;
 
@@ -301,8 +301,8 @@ public class AI extends Player{
 					ArrayList<Tile> discardList = new ArrayList<Tile>() ;
 
 					discardList.add( discardTile ) ;
-					discardList.add(new Tile(tile.suit, tile.value, tile.index-2)) ;
-					discardList.add(new Tile(tile.suit, tile.value, tile.index-1)) ;
+					discardList.add(new Tile(tile.index-2)) ;
+					discardList.add(new Tile(tile.index-1)) ;
 					discardList.add(tile) ;
 					hand.discard( discardTile ) ;
 
@@ -310,18 +310,18 @@ public class AI extends Player{
 					return prevAct ;
 				}
 				else if( (flag & 0b010) > 0 ){
-					hand.discard(new Tile(tile.suit, tile.value, tile.index-1)) ;
+					hand.discard(new Tile(tile.index-1)) ;
 					hand.discard(tile) ;
-					hand.discard(new Tile(tile.suit, tile.value, tile.index+1)) ;
+					hand.discard(new Tile(tile.index+1)) ;
 					exposed++ ;
 
 					Tile discardTile = decideDiscard(hand) ;
 					ArrayList<Tile> discardList = new ArrayList<Tile>() ;
 
 					discardList.add( discardTile ) ;
-					discardList.add(new Tile(tile.suit, tile.value, tile.index-1)) ;
+					discardList.add(new Tile(tile.index-1)) ;
 					discardList.add(tile) ;
-					discardList.add(new Tile(tile.suit, tile.value, tile.index+1)) ;
+					discardList.add(new Tile(tile.index+1)) ;
 					hand.discard( discardTile ) ;
 
 					prevAct = new Action(CHOW, discardList) ;
@@ -329,8 +329,8 @@ public class AI extends Player{
 				}
 				else {
 					hand.discard(tile) ;
-					hand.discard(new Tile(tile.suit, tile.value, tile.index+1)) ;
-					hand.discard(new Tile(tile.suit, tile.value, tile.index+2)) ;
+					hand.discard(new Tile(tile.index+1)) ;
+					hand.discard(new Tile(tile.index+2)) ;
 					exposed++ ;
 
 					Tile discardTile = decideDiscard(hand) ;
@@ -338,8 +338,8 @@ public class AI extends Player{
 
 					discardList.add( discardTile ) ;
 					discardList.add(tile) ;
-					discardList.add(new Tile(tile.suit, tile.value, tile.index+1)) ;
-					discardList.add(new Tile(tile.suit, tile.value, tile.index+2)) ;
+					discardList.add(new Tile(tile.index+1)) ;
+					discardList.add(new Tile(tile.index+2)) ;
 					hand.discard( discardTile ) ;
 
 					prevAct = new Action(CHOW, discardList) ;
