@@ -360,20 +360,20 @@ class FrameTest extends JFrame {
 	}
 	public ImageIcon decideIcon(int suit, int value, boolean fall)
 	{
-		String filePath = "";
+		String filePath = "./icon";
 		if(value == 0)
-			filePath = "icon/cover";
+			filePath += "/cover";
 		else if(suit == 0)
-			filePath = "icon/character_" + value;
+			filePath += "/character_" + value;
 		else if(suit == 1)
-			filePath = "icon/dot_" + value;
+			filePath += "/dot_" + value;
 		else if(suit == 2)
-			filePath = "icon/bamboo_" + value;
+			filePath += "/bamboo_" + value;
 		else if(suit == 3){
 			if(value < 5)
-				filePath = "icon/wind_" + value;
+				filePath += "/wind_" + value;
 			else
-				filePath = "icon/dragon_" + (value % 4);
+				filePath += "/dragon_" + (value % 4);
 		}
 		if(fall)
 			filePath += "_fall.png";
@@ -903,10 +903,6 @@ class FrameTest extends JFrame {
 	{
 		thrower = _thrower;
 		newTile = _newTile;
-	}
-	public void openOption()
-	{
-		this.frameOpen();
 	}
 	
 	
