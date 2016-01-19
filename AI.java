@@ -3,8 +3,8 @@ import java.util.*;
 
 public class AI extends Player{
 
-       	private final int DRAW = 0 ;
-       	private final int CHOW = 1 ;
+	private final int DRAW = 0 ;
+	private final int CHOW = 1 ;
 	private final int PONG = 2 ;
 	private final int KONG = 3 ;
 	private final int ADD_KONG = 4 ;
@@ -14,8 +14,8 @@ public class AI extends Player{
 	private final int HU = 8 ;
 	private int exposed ;
 
-	public AI(int score){
-		super("AI", score ) ;
+	public AI(String name, int score){
+		super(name, score ) ;
 		exposed = 0 ;
 	}
 
@@ -109,8 +109,11 @@ public class AI extends Player{
 		return false ;
 	}
 
-	private boolean huable(Tile tile){
-		return true ;
+	private boolean doHu(Tile tile){
+		if( hand.tingable(tile) == null )
+			return true ;
+		else
+			return false ;
 	}
 
 	private Tile decideDiscard(Hand _hand){
@@ -219,7 +222,7 @@ public class AI extends Player{
 
 	public Action doSomething(int from, Tile tile){ //from 0 draw 1 next 2 opposite 3 previous
 		if(from == 0){ //draw, richi, add kong, private kong, hu
-			if( hand.tingable(tile) != null ) /* huable */
+			if( doHu(tile) ) /* huable */
 				return new Action(HU, new ArrayList<Tile>()) ;
 			else if( doRichi(tile) ){
 				ArrayList<Tile> tingTile = hand.tingable(tile) ;
@@ -235,8 +238,8 @@ public class AI extends Player{
 			}
 		}
 		else if(from == 3){//chow, pong, kong, ron
-			if( hand.tingable(tile) != null ) /* huable */
-				return new Action(HU, new ArrayList<Tile>()) ;
+			if( doHu(tile) )
+				return new Action(RON, new ArrayList<Tile>()) ;
 			else if( doChow(tile) ){
 				Hand tmp = new Hand(hand.getAll()) ;
 				int flag = tmp.chowable(tile) ;
@@ -294,8 +297,8 @@ public class AI extends Player{
 				return null ;
 		}
 		else{// pong, kong, ron
-			if( hand.tingable(tile) != null ) /* huable */
-				return new Action(HU, new ArrayList<Tile>()) ;
+			if( doHu(tile) ) /* huable */
+				return new Action(RON, new ArrayList<Tile>()) ;
 			else if( doPong(tile) ){
 				Hand tmp = new Hand(hand.getAll()) ;
 				tmp.discard(tile) ;
