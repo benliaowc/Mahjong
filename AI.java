@@ -1,6 +1,9 @@
 import java.lang.*;
 import java.util.*;
 
+enum Status {
+	FREE, RICHI, WIN
+}
 public class AI extends Player{
 
 	private final int DRAW = 0 ;
@@ -13,10 +16,16 @@ public class AI extends Player{
 	private final int RON = 7 ;
 	private final int HU = 8 ;
 	private int exposed ;
+	private Status status ;
+	private Tile prevTile ;
+	private Action prevAct ;
 
 	public AI(String name, int score){
 		super(name, score ) ;
 		exposed = 0 ;
+		status = Status.FREE ;
+		prevTile = null ;
+		prevAct = null ;
 	}
 
 	//ask the player whether to draw/chow/pong/kong/reach/hu or not
@@ -220,97 +229,179 @@ public class AI extends Player{
 		return res ;
 	}
 
+	private Action win(int actionType){ /* status: RON or HU */
+		ArrayList<Tile> allTiles = new ArrayList<Tile>() ;
+		for( int i = 0 ; i <= 3 ; i++ ){
+			ArrayList<Tile> tmp = hand.getAll().get(i) ;
+			for( int t = 0 ; t < tmp.size() ; t++ )
+				allTiles.add( tmp.get(t) ) ;
+		}
+		status = Status.WIN ;
+		prevAct = new Action(actionType, allTiles) ;
+		return prevAct ;
+	}
+
 	public Action doSomething(int from, Tile tile){ //from 0 draw 1 next 2 opposite 3 previous
 		if(from == 0){ //draw, richi, add kong, private kong, hu
-			if( doHu(tile) ) /* huable */
-				return new Action(HU, new ArrayList<Tile>()) ;
+			if( doHu(tile) ){ /* huable */
+				hand.add(tile) ;
+				prevTile = tile.same() ;
+				return win(HU) ;
+			}
+			else if( status == Status.RICHI ){
+				prevTile = tile.same() ;
+				ArrayList discardList = new ArrayList<Tile>() ;
+				discardList.add( tile ) ;
+
+				prevAct = new Action(DRAW, discardList) ;
+				return prevAct ;
+			}
 			else if( doRichi(tile) ){
 				ArrayList<Tile> tingTile = hand.tingable(tile) ;
-				ArrayList<Tile> discard = new ArrayList<Tile>() ;
-				discard.add( tingTile.get(0) ) ;
-				return new Action(RICHI, discard) ; 
+				hand.add(tile) ;
+				prevTile = tile.same() ;
+
+				ArrayList<Tile> discardList = new ArrayList<Tile>() ;
+				Tile discardTile = tingTile.get(0) ;
+				discardList.add( discardTile ) ;
+				hand.discard( discardTile ) ;
+
+				status = Status.RICHI ;
+				prevAct = new Action(RICHI, discardList) ;
+				return prevAct ;	
 			}
 			else {
 				hand.add(tile) ;
-				ArrayList<Tile> discard = new ArrayList<Tile>() ;
-				discard.add( decideDiscard(hand) ) ;
-				return new Action(DRAW, discard) ;
+				prevTile = tile.same() ;
+
+				ArrayList<Tile> discardList = new ArrayList<Tile>() ;
+				Tile discardTile = decideDiscard(hand) ;
+				discardList.add( discardTile ) ;
+				hand.discard( discardTile ) ;
+
+				prevAct = new Action(DRAW, discardList) ;
+				return prevAct ;
 			}
 		}
 		else if(from == 3){//chow, pong, kong, ron
-			if( doHu(tile) )
-				return new Action(RON, new ArrayList<Tile>()) ;
+			if( doHu(tile) ){
+				hand.add(tile) ;
+				prevTile = tile.same() ;
+				return win(RON) ;
+			}
+			else if( status == Status.RICHI ){
+				prevAct = null ;
+				return prevAct ;
+			}
 			else if( doChow(tile) ){
-				Hand tmp = new Hand(hand.getAll()) ;
-				int flag = tmp.chowable(tile) ;
+				int flag = hand.chowable(tile) ;
+				hand.add(tile) ;
+				prevTile = tile.same() ;
 				if( (flag & 0b001) > 0 ){
-					tmp.discard(new Tile(tile.suit, tile.value, tile.index-2)) ;
-					tmp.discard(new Tile(tile.suit, tile.value, tile.index-1)) ;
-					tmp.discard(tile) ;
+					hand.discard(new Tile(tile.suit, tile.value, tile.index-2)) ;
+					hand.discard(new Tile(tile.suit, tile.value, tile.index-1)) ;
+					hand.discard(tile) ;
 					exposed++ ;
-					ArrayList<Tile> discard = new ArrayList<Tile>() ;
-					discard.add( decideDiscard(tmp) ) ;
-					discard.add(new Tile(tile.suit, tile.value, tile.index-2)) ;
-					discard.add(new Tile(tile.suit, tile.value, tile.index-1)) ;
-					discard.add(tile) ;
-					return new Action(CHOW, discard) ;
+
+					Tile discardTile = decideDiscard(hand) ;
+					ArrayList<Tile> discardList = new ArrayList<Tile>() ;
+
+					discardList.add( discardTile ) ;
+					discardList.add(new Tile(tile.suit, tile.value, tile.index-2)) ;
+					discardList.add(new Tile(tile.suit, tile.value, tile.index-1)) ;
+					discardList.add(tile) ;
+					hand.discard( discardTile ) ;
+
+					prevAct = new Action(CHOW, discardList) ;
+					return prevAct ;
 				}
 				else if( (flag & 0b010) > 0 ){
-					tmp.discard(new Tile(tile.suit, tile.value, tile.index-1)) ;
-					tmp.discard(tile) ;
-					tmp.discard(new Tile(tile.suit, tile.value, tile.index+1)) ;
+					hand.discard(new Tile(tile.suit, tile.value, tile.index-1)) ;
+					hand.discard(tile) ;
+					hand.discard(new Tile(tile.suit, tile.value, tile.index+1)) ;
 					exposed++ ;
-					ArrayList<Tile> discard = new ArrayList<Tile>() ;
-					discard.add( decideDiscard(tmp) ) ;
-					discard.add(new Tile(tile.suit, tile.value, tile.index-1)) ;
-					discard.add(tile) ;
-					discard.add(new Tile(tile.suit, tile.value, tile.index+1)) ;
-					return new Action(CHOW, discard) ;
+
+					Tile discardTile = decideDiscard(hand) ;
+					ArrayList<Tile> discardList = new ArrayList<Tile>() ;
+
+					discardList.add( discardTile ) ;
+					discardList.add(new Tile(tile.suit, tile.value, tile.index-1)) ;
+					discardList.add(tile) ;
+					discardList.add(new Tile(tile.suit, tile.value, tile.index+1)) ;
+					hand.discard( discardTile ) ;
+
+					prevAct = new Action(CHOW, discardList) ;
+					return prevAct ;
 				}
 				else {
-					tmp.discard(tile) ;
-					tmp.discard(new Tile(tile.suit, tile.value, tile.index+1)) ;
-					tmp.discard(new Tile(tile.suit, tile.value, tile.index+2)) ;
+					hand.discard(tile) ;
+					hand.discard(new Tile(tile.suit, tile.value, tile.index+1)) ;
+					hand.discard(new Tile(tile.suit, tile.value, tile.index+2)) ;
 					exposed++ ;
-					ArrayList<Tile> discard = new ArrayList<Tile>() ;
-					discard.add( decideDiscard(tmp) ) ;
-					discard.add(tile) ;
-					discard.add(new Tile(tile.suit, tile.value, tile.index+1)) ;
-					discard.add(new Tile(tile.suit, tile.value, tile.index+2)) ;
-					return new Action(CHOW, discard) ;
+
+					Tile discardTile = decideDiscard(hand) ;
+					ArrayList<Tile> discardList = new ArrayList<Tile>() ;
+
+					discardList.add( discardTile ) ;
+					discardList.add(tile) ;
+					discardList.add(new Tile(tile.suit, tile.value, tile.index+1)) ;
+					discardList.add(new Tile(tile.suit, tile.value, tile.index+2)) ;
+					hand.discard( discardTile ) ;
+
+					prevAct = new Action(CHOW, discardList) ;
+					return prevAct ;
 				}
 			}
 			else if( doPong(tile) ){
-				Hand tmp = new Hand(hand.getAll()) ;
-				tmp.discard(tile) ;
-				tmp.discard(tile) ;
-				tmp.discard(tile) ;
+				hand.add(tile) ;
+				prevTile = tile.same() ;
+				hand.discard(tile) ;
+				hand.discard(tile) ;
+				hand.discard(tile) ;
 				exposed++ ;
-				ArrayList<Tile> discard = new ArrayList<Tile>() ;
-				discard.add( decideDiscard(tmp) ) ;
-				discard.add(tile) ;
-				discard.add(tile) ;
-				discard.add(tile) ;
-				return new Action(PONG, discard) ;
+
+				Tile discardTile = decideDiscard(hand) ;
+				ArrayList<Tile> discardList = new ArrayList<Tile>() ;
+				discardList.add( discardTile ) ;
+				discardList.add(tile) ;
+				discardList.add(tile) ;
+				discardList.add(tile) ;
+				hand.discard( discardTile ) ;
+
+				prevAct = new Action(PONG, discardList) ;
+				return prevAct ;
 			}
 			else
 				return null ;
 		}
 		else{// pong, kong, ron
-			if( doHu(tile) ) /* huable */
-				return new Action(RON, new ArrayList<Tile>()) ;
+			if( doHu(tile) ){ /* huable */
+				hand.add(tile) ;
+				prevTile = tile.same() ;
+				return win(RON) ;
+			}
+			else if( status == Status.RICHI ){
+				prevAct = null ;
+				return prevAct ;
+			}
 			else if( doPong(tile) ){
-				Hand tmp = new Hand(hand.getAll()) ;
-				tmp.discard(tile) ;
-				tmp.discard(tile) ;
-				tmp.discard(tile) ;
+				hand.add(tile) ;
+				prevTile = tile.same() ;
+				hand.discard(tile) ;
+				hand.discard(tile) ;
+				hand.discard(tile) ;
 				exposed++ ;
-				ArrayList<Tile> discard = new ArrayList<Tile>() ;
-				discard.add( decideDiscard(tmp) ) ;
-				discard.add(tile) ;
-				discard.add(tile) ;
-				discard.add(tile) ;
-				return new Action(PONG, discard) ;
+
+				Tile discardTile = decideDiscard(hand) ;
+				ArrayList<Tile> discardList = new ArrayList<Tile>() ;
+				discardList.add( discardTile ) ;
+				discardList.add(tile) ;
+				discardList.add(tile) ;
+				discardList.add(tile) ;
+				hand.discard( discardTile ) ;
+
+				prevAct = new Action(PONG, discardList) ;
+				return prevAct ;
 			}
 			else
 				return null ;
@@ -321,5 +412,15 @@ public class AI extends Player{
 	public void failed(){
 		if( exposed > 0 )
 			exposed-- ;
+		for( int i = 0 ; i < prevAct.tiles.size() ; i++ )
+			hand.add( prevAct.tiles.get(i) ) ;
+		hand.discard(prevTile) ;
+	}
+
+	public void GameOver(){
+		exposed = 0 ;
+		status = Status.FREE ;
+		prevTile = null ;
+		prevAct = null ;
 	}
 }
