@@ -191,7 +191,10 @@ public class Hand {
 						nLeft++;								
 					}
 				}	
-				if(nLeft == 0) return null;
+				if(nLeft == 0){
+					discard(newTile);
+					return null;
+				}
 				ArrayList<Tile> theHope;
 				//System.out.println("nLeft:" + nLeft);
 				if(nLeft <= 2){
