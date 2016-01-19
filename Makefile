@@ -8,7 +8,7 @@
 	javac $*.java
 
 # Our .java files
-JAVAS = Tile.java Hand.java Shuffler.java test.java
+JAVAS = Tile.java Hand.java Shuffler.java Board.java Player.java AI.java comGUI.java FrameTest.java
 
 default: classes
 
