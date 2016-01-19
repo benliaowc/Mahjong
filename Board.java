@@ -5,6 +5,7 @@ public class Board{
 	public static final int initScore = 25000;
 	public static final int games = 1;	//1東風戰 2東南戰...
 	public static int wind;	//0東 1南 2西 3北
+	public static int game;	//現在的局數-1
 	public static String[] actionString = {
 	 "",
 	 "吃",
@@ -16,7 +17,6 @@ public class Board{
 	 "榮",
 	 "胡"
 	};
-	public static int game;
 	public static int dealer; //一開始的莊家
 	private static Shuffler shuffler;
 	private static comGUI GUI;
@@ -77,6 +77,8 @@ public class Board{
 						for(int i = 1 ; i < action.tiles.size() ; i++){	//副露
 							table.get(current+1).add(action.tiles.get(i));
 						}
+						GUI.assignTile(table);
+						GUI.renewGUI();
 						tile = action.tiles.get(0);	//打出來的牌
 						Action selectAction = null;
 						int selectPlayer = -1;
@@ -100,6 +102,8 @@ public class Board{
 						}
 						else{//換下一家，到switch外面抽牌、決定動作
 							table.get(0).add(tile);
+							GUI.assignTile(table);
+							GUI.renewGUI();
 							current = (current+1)%4;
 						}
 						break;
@@ -109,6 +113,8 @@ public class Board{
 						for(int i = 0 ; i < action.tiles.size() ; i++){	//槓從0開始算副露
 							table.get(current+1).add(action.tiles.get(i));
 						}
+						GUI.assignTile(table);
+						GUI.renewGUI();
 						shuffler.ackKong();
 						break;	//目前玩家補一張，到switch外面抽牌、決定動作
 					case 7:	//榮
