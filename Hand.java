@@ -47,14 +47,18 @@ public class Hand {
 		return allTiles;	
 	}
 
-	public void add(Tile newTile){
+	public void add(Tile n){
+		Tile newTile = n.same();
+		newTile.setSize(1);
 		int index = allTiles.get(newTile.suit).indexOf(newTile);
 		if(index >= 0) allTiles.get(newTile.suit).get(index).addSize(1);
 		else allTiles.get(newTile.suit).add(newTile);
 		sort();
 	}
 	
-	public boolean discard(Tile discardTile){ //If no this tile in hand return false (An error)
+	public boolean discard(Tile n){ //If no this tile in hand return false (An error)
+		Tile discardTile = n.same();
+		discardTile.setSize(1);
 		int index = allTiles.get(discardTile.suit).indexOf(discardTile);
 		if(index < 0) return false;
 		if(allTiles.get(discardTile.suit).get(index).getSize() > 1){ 
@@ -66,8 +70,11 @@ public class Hand {
 		return true;
 	}
 
-	public boolean replace(Tile newTile, Tile oldTile){ //If this old tile is not in hand return false (An error)
-		
+	public boolean replace(Tile n, Tile o){ //If this old tile is not in hand return false (An error)
+		Tile oldTile = o.same();
+		oldTile.setSize(1);
+		Tile newTile = n.same();
+		newTile.setSize(1);
 		int oldIndex = allTiles.get(oldTile.suit).indexOf(oldTile);
 		if(oldIndex < 0) return false;
 		if(allTiles.get(oldTile.suit).get(oldIndex).getSize() > 1) allTiles.get(oldTile.suit).get(oldIndex).addSize(-1);			
