@@ -92,17 +92,17 @@ public class Hand {
 		int flag = 0;		
 		if(newTile.suit == 3) return 0;
 		if(newTile.value >= 2)
-			 if(allTiles.get(newTile.suit).contains(new Tile(newTile.suit, newTile.value, newTile.index - 1)))
-				 if(allTiles.get(newTile.suit).contains(new Tile(newTile.suit, newTile.value, newTile.index - 2)))
+			 if(allTiles.get(newTile.suit).contains(new Tile(newTile.index - 1)))
+				 if(allTiles.get(newTile.suit).contains(new Tile(newTile.index - 2)))
 					flag |= 0b001;
 		if(newTile.value <= 7)
-			 if(allTiles.get(newTile.suit).contains(new Tile(newTile.suit, newTile.value, newTile.index + 1)))
-				 if(allTiles.get(newTile.suit).contains(new Tile(newTile.suit, newTile.value, newTile.index + 2)))
+			 if(allTiles.get(newTile.suit).contains(new Tile(newTile.index + 1)))
+				 if(allTiles.get(newTile.suit).contains(new Tile(newTile.index + 2)))
 					flag |= 0b100;
 
 		if(newTile.value <= 8 && newTile.value >= 1)
-			 if(allTiles.get(newTile.suit).contains(new Tile(newTile.suit, newTile.value, newTile.index - 1)))
-				 if(allTiles.get(newTile.suit).contains(new Tile(newTile.suit, newTile.value, newTile.index + 1)))
+			 if(allTiles.get(newTile.suit).contains(new Tile(newTile.index - 1)))
+				 if(allTiles.get(newTile.suit).contains(new Tile(newTile.index + 1)))
 					flag |= 0b010;
 				
 		return flag;

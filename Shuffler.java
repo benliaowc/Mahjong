@@ -53,9 +53,8 @@ public class Shuffler {
 			permuteIndex();
 			return null;
 		}
-		int suit = next/36;
 	
-		res = new Tile(suit, (next % 36)/4, next/4);
+		res = new Tile(next/4);
 		
 		return res;
 	}
