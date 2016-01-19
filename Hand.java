@@ -158,7 +158,6 @@ public class Hand {
 				tempHand.discard(pair.get(i));
 			}else{
 				takepair = false;
-				tempHand.discard(newTile);
 			}
 
 			//System.out.println("tempHand:" + tempHand);
@@ -243,22 +242,24 @@ public class Hand {
 							}
 						}					
 					}
-					if(nLeft == 1){
-						if(theHope.size() == 1 && takepair == false){
-							if(theHope.get(0).getSize() == 1){
-								Tile t1 = theHope.get(0).same();
-								if(noPairTing.indexOf(t1) < 0) noPairTing.add(t1);
-							}
+				
+					if(theHope.size() == 2 && takepair == false){
+						if(theHope.get(0).getSize() == 1 && theHope.get(1).getSize() == 1){
+							Tile t1 = theHope.get(0).same();
+							Tile t2 = theHope.get(1).same();
+							if(res.indexOf(t1) < 0) res.add(t1);
+							if(res.indexOf(t2) < 0) res.add(t2);
 						}
-					}		
+					}
+						
 				}	
 				
 			}			
 		}		
-		if(noPairTing.size() > 1){
+		// if(noPairTing.size() > 1){
 				
-			for(Tile t:noPairTing) if(res.indexOf(t) < 0) res.add(t);
-		}
+			// for(Tile t:noPairTing) if(res.indexOf(t) < 0) res.add(t);
+		// }
 
 		discard(newTile);
 		//System.out.println("Hand:" + this);
