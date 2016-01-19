@@ -112,6 +112,13 @@ class comGUI
 		else
 			numUpPlayer = num;
 	}
+	public void assignHandNum(int[] num)
+	{
+		numRightPlayer = num[0];
+		numUpPlayer = num[1];
+		numLeftPlayer = num[2];
+		
+	}
 	public void assignExposedKongNum(int which, int num)
 	{
 		if(which == rightPlayerIndex)
@@ -184,11 +191,13 @@ class comGUI
 				hand.add(tile);
 				
 			}
-			boolean[] b;
+			//boolean[] b;
 			newTile = tile.same();
 			doSelect(from, newTile);
 			
-			frame.changeEnable(false);
+			//frame.changeEnable(false);
+			if(action == -1)
+				return null;
 			return new Action(action, discardTile);
 		}
 		
@@ -196,9 +205,8 @@ class comGUI
 		
 		private void doSelect(int from, Tile newTile)
 		{
-			frame.changeEnable(true);
 			//boolean[] b = {true, true, true, true, true};
-			boolean[] b = {false, false, false, false, false};
+			boolean[] b = {false, false, false, false, false}; /*吃, 碰, 槓, 聽, 胡*/
 			
 			//boolean[] b = {true, true, true, false, false};
 			int tempType = hand.chowable(newTile);
@@ -220,7 +228,10 @@ class comGUI
 				//b[3] = true;
 			}
 			frame.setThrower(from, newTile);
-			//System.out.println(from +" "+ newTile);
+			/*System.out.println("AAA " + from +" "+ newTile);
+			for(int i = 0 ; i < 5; i++)
+				if(b[i])
+					System.out.println("Choice " + i);*/
 			//b[0] = true;
 			//tempType = 7;
 			frame.setChowOption(tempType, getChewChoice(tempType, newTile));
@@ -235,10 +246,16 @@ class comGUI
 						}
 					}
 				});
+				waitOK();
+			}
+			else if(from != 0){
+				action = -1;
+				return;
 			}
 			else
 				action = 0;
-			waitOK();
+			
+			choice = frame.getChoice();
 			selectProcess(tempType, newTile, from);
 		}
 		private void waitOK()
@@ -247,7 +264,7 @@ class comGUI
 			pushTile = new ArrayList<Tile>();
 			for(Tile t : frame.push)
 				pushTile.add(t.same());
-			choice = frame.getChoice();
+			
 			/*for(int i = 0; i < 6; i++)
 				if(choice[i])
 					System.out.println(i);*/
@@ -327,10 +344,10 @@ class comGUI
 			}
 			for(Tile t: discardTile)
 				System.out.println(t);
+			
 			hand.discard(discardTile.get(0));
+			frame.resetChoice();
 			c.renewGUI();
-			//failed();
-			//win();
 		}
 		private ArrayList<ArrayList<Tile>> getChewChoice(int flag, Tile newTile)
 		{
