@@ -292,7 +292,7 @@ class FrameTest extends JFrame {
 				choice[index] = true;
 				
 				//btnOpen.setEnabled(true);
-				changeEnable(true);
+				//changeEnable(true);
 				
 				doChoice(choice, panel);
 				panel.revalidate();
@@ -430,7 +430,7 @@ class FrameTest extends JFrame {
 			panel_2.add(btnClose);*/
 			
 			
-			changeEnable(false);
+			//changeEnable(false);
 			//createButtonGroup(panel_1);
 			createButton(panel_1, dialog);
 			//frame.setVisible (true);
@@ -627,7 +627,7 @@ class FrameTest extends JFrame {
 			panel_1.add(new JLabel("你胡了!"));
 		}
 		else{
-			panel_1.add(new JLabel("有人胡了 這局結束!"));
+			panel_1.add(new JLabel("總之你沒有胡 這局結束!"));
 		}
 		
 		JPanel panel_2 = new JPanel();
@@ -638,7 +638,7 @@ class FrameTest extends JFrame {
 		JButton button = new JButton("確認");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				changeEnable(true);
+				//changeEnable(true);
 				reset();
 				dialog.dispose();
 			}
