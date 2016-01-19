@@ -142,7 +142,7 @@ class comGUI
 	public class PlayerGUI extends Player
 	{
 		public ArrayList<Tile> myHand;
-		private Hand hand;
+		//private Hand hand;
 		private Tile newTile;
 		private ArrayList<Tile> discardTile;
 		private ArrayList<Tile> pushTile;
@@ -166,16 +166,13 @@ class comGUI
 		{
 			frame.actionFail();
 		}
-		public void initTiles(ArrayList<Tile> t)
+		
+		@override
+		public void initHand(ArrayList<ArrayList<Tile>> allTiles)
 		{
 			frame.setFlip(-1, new ArrayList<Tile>());
 			//myHand = new ArrayList<Tile>();
-			hand = new Hand();
-			
-			for(Tile temp : t){
-				//myHand.add(temp.same());
-				hand.add(temp.same());
-			}
+			hand = new Hand(allTiles);
 			getHand();
 		}
 		
