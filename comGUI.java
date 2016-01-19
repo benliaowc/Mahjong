@@ -167,7 +167,7 @@ class comGUI
 			frame.actionFail();
 		}
 		
-		@override
+		@Override
 		public void initHand(ArrayList<ArrayList<Tile>> allTiles)
 		{
 			frame.setFlip(-1, new ArrayList<Tile>());
