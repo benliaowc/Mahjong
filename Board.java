@@ -20,6 +20,11 @@ public class Board{
 	public static int dealer; //一開始的莊家
 	private static Shuffler shuffler;
 	private static comGUI GUI;
+	public static void printTiles(ArrayList<Tile> tiles){
+		for(Tile t:tiles){
+			System.out.print(t+",");
+		}		
+	}
 	public static void main(String args[]){
 		wind = 0;
 		dealer = 0;	//maybe we should decide this randomly?
@@ -94,6 +99,7 @@ public class Board{
 						break;	//目前玩家補一張，到switch外面抽牌、決定動作
 					case 7:	//榮
 					case 8:	//自摸
+						printTiles(action.tiles);
 						if(current != (dealer+game)%4){//當局莊家沒有連莊就要輪莊，進入下一局
 							game++;
 						}
