@@ -33,18 +33,24 @@ public class Board{
 		GUI = new comGUI();
 		Player[] player = new Player[4];
 		ArrayList<ArrayList<Tile>> allTiles = new ArrayList<ArrayList<Tile>>();//0萬 1筒 2條 3字
+		ArrayList<ArrayList<Tile>> table = new ArrayList<ArrayList<Tile>>();
 		GUI.initPlayerGUI("PlayerGUI", initScore, GUI);
 		player[0] = GUI.player;
+		table.add(new ArrayList<Tile>());	//河底
 		for(int i = 1; i < 4 ; i++){
 			player[i] = new AI("PlayerAI"+i, initScore);
 		}
 		for(int i = 0 ; i < 4 ; i++){
 			allTiles.add(new ArrayList<Tile>());
+			table.add(new ArrayList<Tile>());	//副露
 		}
 		while(true){
+			
+			table.get(0).clear();	//清空河底
 
-			//init 4 players' hands
+			//init 4 players' hands and tables
 			for(int i = 0 ; i < 4 ; i++){
+				table.get(i+1).clear();//清空副露
 				for(int j = 0 ; j < 4 ; j++){
 					allTiles.get(j).clear();
 				}
@@ -68,6 +74,9 @@ public class Board{
 					case 1:	//吃
 					case 2:	//碰
 					case 6:	//立直
+						for(int i = 1 ; i < action.tiles.size() ; i++){	//副露
+							table.get(current+1).add(action.tiles.get(i));
+						}
 						tile = action.tiles.get(0);	//打出來的牌
 						Action selectAction = null;
 						int selectPlayer = -1;
@@ -90,12 +99,16 @@ public class Board{
 							continue;
 						}
 						else{//換下一家，到switch外面抽牌、決定動作
+							table.get(0).add(tile);
 							current = (current+1)%4;
 						}
 						break;
 					case 3:	//槓
 					case 4:	//加槓
 					case 5:	//暗槓
+						for(int i = 0 ; i < action.tiles.size() ; i++){	//槓從0開始算副露
+							table.get(current+1).add(action.tiles.get(i));
+						}
 						shuffler.ackKong();
 						break;	//目前玩家補一張，到switch外面抽牌、決定動作
 					case 7:	//榮
