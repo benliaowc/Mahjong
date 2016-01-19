@@ -114,7 +114,7 @@ public class Board{
 				}
 				action = player[current].doSomething(0, tile);
 			}
-
+			game++;
 			if(game == 4)	//打滿4局，南(?入
 				wind = (wind+1)%4;
 			if(wind == games)	//結束
