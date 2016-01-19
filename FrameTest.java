@@ -141,7 +141,8 @@ class FrameTest extends JFrame {
 		this.setTitle("POOMahjong");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 10, 796, 703);
-		contentPane = new JPanel();
+		reset();
+		/*contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -154,31 +155,13 @@ class FrameTest extends JFrame {
 		contentPane.add(tablePanel);
 		tablePanel.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 		
-		for(int i = 0; i < 134; i++){
-			if(i % 4  == 3){
-				addLabel(tablePanel, i%4 , i%7+1, false);
-			}
-			else
-				addLabel(tablePanel, i%4 , i%9+1, false);
-		}
-		/*for(int i = 0; i < 4; i++){
-			int length = 0;
-			if(i < 3)
-				length = 9;
-			else
-				length = 7;
-			for(int j = 0; j < length; j++){
-				addLabel(panel, i , j+1, false);
-			}
-		}*/
-		
 		
 		myPlayer = new JPanel();
 		myPlayer.setBounds(137, 611, 499, 42);
 		contentPane.add(myPlayer);
 		myPlayer.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 		
-		addTestHand();
+		//addTestHand();
 		
 		btnOpen = new JButton("open");
 		btnOpen.addActionListener(new ActionListener() {
@@ -197,10 +180,6 @@ class FrameTest extends JFrame {
 		btnClear = new JButton("clear");
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*int length = tablePanel.getComponentCount();
-				for(int i = 0; i < length; i++){
-					removeLabel(tablePanel, 0);
-				}*/
 				clear();
 			}
 		});
@@ -267,7 +246,7 @@ class FrameTest extends JFrame {
 			addLabel(playerRightOpen,0, 0, true);
 			addLabel(playerLeftOpen,0, 0, true);
 			addLabel(myPlayerOpen,0, 0, false);
-		}
+		}*/
 		
 	}
 	
@@ -312,7 +291,7 @@ class FrameTest extends JFrame {
 					choice[i] = false;
 				choice[index] = true;
 				
-				btnOpen.setEnabled(true);
+				//btnOpen.setEnabled(true);
 				changeEnable(true);
 				
 				doChoice(choice, panel);
@@ -541,7 +520,7 @@ class FrameTest extends JFrame {
 		contentPane.add(myPlayer);
 		myPlayer.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 		
-		btnOpen = new JButton("open");
+		/*btnOpen = new JButton("open");
 		btnOpen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				frameOpen();
@@ -549,38 +528,38 @@ class FrameTest extends JFrame {
 			}
 		});
 		btnOpen.setBounds(10, 597, 74, 23);
-		contentPane.add(btnOpen);
+		contentPane.add(btnOpen);*/
 		
 		myPlayerOpen = new JPanel();
 		myPlayerOpen.setBounds(137, 559, 499, 42);
 		contentPane.add(myPlayerOpen);
 		
-		btnClear = new JButton("clear");
+		/*btnClear = new JButton("clear");
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clear();
 			}
 		});
 		btnClear.setBounds(10, 564, 74, 23);
-		contentPane.add(btnClear);
+		contentPane.add(btnClear);*/
 		
-		btnDisable = new JButton("disable");
+		/*btnDisable = new JButton("disable");
 		btnDisable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changeEnable(false);
 			}
 		});
 		btnDisable.setBounds(646, 630, 83, 23);
-		contentPane.add(btnDisable);
+		contentPane.add(btnDisable);*/
 		
-		button_1 = new JButton("enable");
+		/*button_1 = new JButton("enable");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				changeEnable(true);
 			}
 		});
 		button_1.setBounds(646, 597, 83, 23);
-		contentPane.add(button_1);
+		contentPane.add(button_1);*/
 		
 		playerRight = new JPanel();
 		playerRight.setBounds(714, 62, 56, 499);
@@ -607,14 +586,14 @@ class FrameTest extends JFrame {
 		playerLeftOpen.setBounds(71, 62, 56, 499);
 		contentPane.add(playerLeftOpen);
 		
-		btnReset = new JButton("reset");
+		/*btnReset = new JButton("reset");
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				reset();
 			}
 		});
 		btnReset.setBounds(10, 630, 64, 23);
-		contentPane.add(btnReset);
+		contentPane.add(btnReset);*/
 		
 		refreshAllContent();
 		contentPane.revalidate();
@@ -772,8 +751,9 @@ class FrameTest extends JFrame {
 		Tile t = new Tile(suit*9 + (value - 1));
 		ArrayList<Tile> temp = new ArrayList<Tile>();
 		temp.add(t);
-		ack();
 		push = temp;
+		ack();
+		
 		
 		
 	}
