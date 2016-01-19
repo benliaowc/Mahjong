@@ -41,8 +41,6 @@ public class Board{
 		for(int i = 0 ; i < 4 ; i++){
 			allTiles.add(new ArrayList<Tile>());
 		}
-		GUI.renewGUI();
-		GUI.showGUI();
 		while(true){
 
 			//init 4 players' hands
@@ -56,6 +54,8 @@ public class Board{
 				}
 				player[i].initHand(allTiles);
 			}
+			GUI.renewGUI();
+			GUI.showGUI();
 			
 			int gameOver = 0;
 			int current = (dealer+game)%4;//看第幾局決定輪到誰做莊，莊家開始，抽牌、決定動作
