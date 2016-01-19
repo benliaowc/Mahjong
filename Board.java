@@ -83,7 +83,7 @@ public class Board{
 						for(int i = 1 ; i < 4 ; i++){//問另外三家有沒有事情要做
 							int p = (current+i)%4;
 							System.out.println("wait "+p+" "+tile+" "+tile.getSize());
-							action = player[p].doSomething(4-p, tile);
+							action = player[p].doSomething(4-i, tile);
 							if(action == null) continue;
 							System.out.println(p+" "+actionString[action.type]);
 							if(selectPlayer == -1 || action.type > selectAction.type){
