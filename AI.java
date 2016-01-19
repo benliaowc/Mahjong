@@ -32,9 +32,7 @@ public class AI extends Player{
 	private boolean doChow(Tile tile){
 		if( hand.chowable(tile) == 0 )
 			return false ;
-		if( exposed == 0 )
-			return false ;
-
+	
 		Hand tmp = new Hand(hand.getAll()) ;
 		tmp.add(tile) ;
 		Collections.sort(tmp.getAll().get(tile.suit));
@@ -71,11 +69,7 @@ public class AI extends Player{
 	private boolean doPong(Tile tile){
 		if( !hand.pongable(tile) )
 			return false ;
-		else if( tile.suit == 3 && tile.value > 3 )
-			return true ;
-		else if( exposed == 0 )
-			return false ;
-
+	
 		Hand tmp = new Hand(hand.getAll()) ;
 		tmp.add(tile) ;
 		Collections.sort(tmp.getAll().get(tile.suit));
