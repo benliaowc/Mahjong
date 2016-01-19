@@ -62,7 +62,7 @@ public class Tile implements Comparable<Tile>{
 	}
 
 	public Tile same(){
-		Tile t = new Tile(suit, value, index);
+		Tile t = new Tile(index);
 		t.setSize(size);
 		return t;
 	}
@@ -73,7 +73,7 @@ public class Tile implements Comparable<Tile>{
 		if(suit == 3 && (value + i < 0 || value + i > 6)){
 			return null;		
 		}
-		Tile t = new Tile(suit, value + i, index + i);
+		Tile t = new Tile(index + i);
 		t.setSize(size);
 		return t;
 	}
