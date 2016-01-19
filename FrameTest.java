@@ -204,7 +204,7 @@ class FrameTest extends JFrame {
 		btnDisable = new JButton("disable");
 		btnDisable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeEable(false);
+				changeEnable(false);
 			}
 		});
 		btnDisable.setBounds(646, 630, 83, 23);
@@ -213,7 +213,7 @@ class FrameTest extends JFrame {
 		button_1 = new JButton("enable");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeEable(true);
+				changeEnable(true);
 			}
 		});
 		button_1.setBounds(646, 597, 83, 23);
@@ -270,7 +270,7 @@ class FrameTest extends JFrame {
 		contentPane.revalidate();
 		contentPane.repaint();
 	}
-	public void changeEable(boolean b)
+	public void changeEnable(boolean b)
 	{
 		for(Component component : ((Container)myPlayer).getComponents()) {
 		    component.setEnabled(b);
@@ -282,8 +282,8 @@ class FrameTest extends JFrame {
 		JToggleButton button = new JToggleButton("");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				removeButton(panel, button);
-				addLabel(tablePanel, suit, value, false);
+				//removeButton(panel, button);
+				//addLabel(tablePanel, suit, value, false);
 				sendToBoard(suit, value);
 			}
 		});
@@ -307,7 +307,7 @@ class FrameTest extends JFrame {
 				choice[index] = true;
 				
 				btnOpen.setEnabled(true);
-				changeEable(true);
+				changeEnable(true);
 				
 				doChoice(choice, panel);
 				panel.revalidate();
@@ -445,7 +445,7 @@ class FrameTest extends JFrame {
 			panel_2.add(btnClose);*/
 			
 			
-			changeEable(false);
+			changeEnable(false);
 			//createButtonGroup(panel_1);
 			createButton(panel_1, dialog);
 			//frame.setVisible (true);
@@ -561,7 +561,7 @@ class FrameTest extends JFrame {
 		btnDisable = new JButton("disable");
 		btnDisable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeEable(false);
+				changeEnable(false);
 			}
 		});
 		btnDisable.setBounds(646, 630, 83, 23);
@@ -570,7 +570,7 @@ class FrameTest extends JFrame {
 		button_1 = new JButton("enable");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				changeEable(true);
+				changeEnable(true);
 			}
 		});
 		button_1.setBounds(646, 597, 83, 23);
@@ -616,7 +616,7 @@ class FrameTest extends JFrame {
 	}
 	public void hu(boolean win)
 	{   
-        changeEable(false);
+		changeEnable(false);
         JFrame frame = new JFrame ();
         //frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(100, 100, 310, 221);
@@ -646,7 +646,7 @@ class FrameTest extends JFrame {
 		JButton button = new JButton("確認");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				changeEable(true);
+				changeEnable(true);
 				reset();
 				frame.dispose();
 			}
@@ -700,10 +700,10 @@ class FrameTest extends JFrame {
 	public void setAllContent(ArrayList<ArrayList<Tile>> temp, int[] tempNum)
 	{
 		tableTile = temp.get(0);
-		rightPlayerOpenTile = temp.get(1);
-		leftPlayerOpenTile = temp.get(2);
+		myPlayerOpenTile = temp.get(1);
+		rightPlayerOpenTile = temp.get(2);
 		upPlayerOpenTile = temp.get(3);
-		myPlayerOpenTile = temp.get(4);
+		leftPlayerOpenTile = temp.get(4);
 		myPlayerHandTile = temp.get(5);
 		
 		numRightPlayer = tempNum[0];
@@ -733,7 +733,7 @@ class FrameTest extends JFrame {
 		for(int i = 0; i < myPlayerOpenTile.size(); i++)
 			addLabel(myPlayerOpen, myPlayerOpenTile.get(i).suit, myPlayerOpenTile.get(i).value + 1, false);
 		for(int i = 0; i < myPlayerHandTile.size(); i++)
-			addButton(rightPlayerOpenTile.get(i).suit, rightPlayerOpenTile.get(i).value + 1);
+			addButton(myPlayerHandTile.get(i).suit, myPlayerHandTile.get(i).value + 1);
 		
 		renew();
 	}
@@ -904,6 +904,7 @@ class FrameTest extends JFrame {
 		thrower = _thrower;
 		newTile = _newTile;
 	}
+
 	
 	
 	
