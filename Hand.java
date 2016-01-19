@@ -7,7 +7,6 @@ import java.util.*;
 public class Hand {
 	
 	private ArrayList<ArrayList<Tile>> allTiles;
-	private ArrayList<ArrayList<Tile>> tingMap;
 
 	public Hand(){
 		allTiles = new ArrayList<ArrayList<Tile>>();
@@ -15,8 +14,6 @@ public class Hand {
 		allTiles.add(new ArrayList<Tile>());	//tong
 		allTiles.add(new ArrayList<Tile>());	//tiao
 		allTiles.add(new ArrayList<Tile>());	//zi
-		tingMap = new ArrayList<ArrayList<Tile>>();
-		for(int i = 0;i < 34;i++) tingMap.add(new ArrayList<Tile>());
 	}
 
 	public Hand(ArrayList<ArrayList<Tile>> all){
@@ -36,12 +33,6 @@ public class Hand {
 	}
 
 	private ArrayList<Tile> ting = new ArrayList<Tile>();
-
-	private void clearTingMap(){
-		for(int i = 0;i < 34;i++){
-			tingMap.get(i).clear();		
-		}	
-	}
 
 	public ArrayList<ArrayList<Tile>> getAll(){
 		return allTiles;	
@@ -138,8 +129,6 @@ public class Hand {
 		ArrayList<Tile> noPairTing = new ArrayList<Tile>();
 		noPairTing.add(newTile);	
 
-		clearTingMap();
-		
 		ArrayList<Tile> res = new ArrayList<Tile>();
 
 		add(newTile);
@@ -216,13 +205,11 @@ public class Hand {
 						if(theHope.get(0).getSize() == 2 && theHope.get(1).getSize() == 1){
 							Tile t1 = theHope.get(1).same();
 							Tile t2 = theHope.get(0).same();
-							if(tingMap.get(t1.index).indexOf(t2) < 0) tingMap.get(t1.index).add(t2);
 							if(res.indexOf(t1) < 0) res.add(t1);			
 						}
 						if(theHope.get(0).getSize() == 1 && theHope.get(1).getSize() == 2){
 							Tile t1 = theHope.get(0).same();
 							Tile t2 = theHope.get(1).same();
-							if(tingMap.get(t1.index).indexOf(t2) < 0) tingMap.get(t1.index).add(t2);
 							if(res.indexOf(t1) < 0) res.add(t1);							
 						}
 										
@@ -233,9 +220,7 @@ public class Hand {
 								Tile t3 = theHope.get(2).same();
 								if(res.indexOf(t3) < 0) res.add(t3);
 								Tile t1 = theHope.get(0).same(-1);
-								if(t1 != null && tingMap.get(t3.index).indexOf(t1) < 0) tingMap.get(t3.index).add(t1);
 								Tile t2 = theHope.get(1).same(1);
-								if(t2 != null && tingMap.get(t3.index).indexOf(t2) < 0) tingMap.get(t3.index).add(t2);
 											
 							}
 							if(theHope.get(1).index + 1 == theHope.get(2).index && theHope.get(1).suit == theHope.get(2).suit && theHope.get(1).suit != 3){
@@ -243,9 +228,7 @@ public class Hand {
 								if(res.indexOf(t3) < 0) res.add(t3);
 								Tile t1 = theHope.get(1).same(-1);
 								//System.out.println("t1:" + t1);
-								if(t1 != null && tingMap.get(t3.index).indexOf(t1) < 0) tingMap.get(t3.index).add(t1);
 								Tile t2 = theHope.get(2).same(1);
-								if(t2 != null && tingMap.get(t3.index).indexOf(t2) < 0) tingMap.get(t3.index).add(t2);						
 							}
 						}					
 					}
