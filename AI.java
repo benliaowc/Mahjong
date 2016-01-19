@@ -244,7 +244,7 @@ public class AI extends Player{
 			}
 			else if( status == Status.RICHI ){
 				prevTile = tile.same() ;
-				ArrayList discardList = new ArrayList<Tile>() ;
+				ArrayList<Tile> discardList = new ArrayList<Tile>() ;
 				discardList.add( tile ) ;
 
 				prevAct = new Action(DRAW, discardList) ;
