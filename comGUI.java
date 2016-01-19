@@ -208,7 +208,6 @@ class comGUI
 			//boolean[] b = {true, true, true, true, true};
 			boolean[] b = {false, false, false, false, false}; /*吃, 碰, 槓, 聽, 胡*/
 			
-			//boolean[] b = {true, true, true, false, false};
 			int tempType = hand.chowable(newTile);
 			ArrayList<Tile> temp = hand.tingable(newTile);
 			
@@ -234,7 +233,7 @@ class comGUI
 					System.out.println("Choice " + i);*/
 			//b[0] = true;
 			//tempType = 7;
-			frame.setChowOption(tempType, getChewChoice(tempType, newTile));
+			//frame.setChowOption(tempType, getChewChoice(tempType, newTile));
 			if(b[0] || b[1] || b[2] || b[3] || b[4]){
 				frame.setSelect(b);
 				EventQueue.invokeLater(new Runnable() {
@@ -381,7 +380,7 @@ class comGUI
 			for(ArrayList<Tile> temp : hand.getAll())
 				for(Tile t : temp)
 					for(int i = 0; i < t.getSize(); i++){
-						myHand.add(new Tile(t.suit, t.value, t.index));
+						myHand.add(new Tile(t.index));
 					}
 		}
 		
