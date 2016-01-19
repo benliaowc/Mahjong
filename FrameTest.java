@@ -69,6 +69,11 @@ class FrameTest extends JFrame {
 	private int chowOption;
 	private ArrayList<ArrayList<Tile>> chewChoice;
 	
+	private int flipNum;
+	private ArrayList<Tile> rightPlayerHandTile;
+	private ArrayList<Tile> upPlayerHandTile;
+	private ArrayList<Tile> leftPlayerHandTile;
+	
 	private int thrower;
 	private Tile newTile;
 	
@@ -116,6 +121,7 @@ class FrameTest extends JFrame {
 	 * Create the frame.
 	 */
 	public FrameTest() {
+		flipNum = -1;
 		
 		ok = false;
 		push = new ArrayList<Tile>();
@@ -616,14 +622,21 @@ class FrameTest extends JFrame {
 	}
 	public void hu(boolean win)
 	{   
-		changeEnable(false);
-        JFrame frame = new JFrame ();
-        //frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-		frame.setBounds(100, 100, 310, 221);
-		JPanel panel = new JPanel();
+		//changeEnable(false);
+		
+		JDialog dialog = new JDialog ();
+        //dialog.setTitle("請選擇");
+        dialog.setModal (true);
+        dialog.setAlwaysOnTop (true);
+        dialog.setModalityType (Dialog.ModalityType.APPLICATION_MODAL);
+        dialog.setDefaultCloseOperation (JDialog.DO_NOTHING_ON_CLOSE);
+        dialog.setBounds(100, 100, 310, 221);
+        
+        
+        JPanel panel = new JPanel();
 		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		frame.setContentPane(panel);
 		panel.setLayout(null);
+		dialog.setContentPane(panel);
 		
 		
 		JPanel panel_1 = new JPanel();
@@ -632,10 +645,10 @@ class FrameTest extends JFrame {
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		if(win){
-			panel_1.add(new JLabel("你贏了!"));
+			panel_1.add(new JLabel("你胡了!"));
 		}
 		else{
-			panel_1.add(new JLabel("你輸了!"));
+			panel_1.add(new JLabel("有人胡了 這局結束!"));
 		}
 		
 		JPanel panel_2 = new JPanel();
@@ -648,13 +661,13 @@ class FrameTest extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				changeEnable(true);
 				reset();
-				frame.dispose();
+				dialog.dispose();
 			}
 		});
 		button.setBounds(102, 10, 87, 23);
 		panel_2.add(button);
 		
-		frame.setVisible(true);
+		dialog.setVisible(true);
 	}
 	public void clear()
 	{
@@ -714,13 +727,29 @@ class FrameTest extends JFrame {
 	public void refreshAllContent()
 	{
 		clear();
-		
-		for(int i = 0; i < numRightPlayer; i++)
-			addLabel(playerRight, 0, 0, true);
-		for(int i = 0; i < numUpPlayer; i++)
-			addLabel(playerLeft, 0, 0, true);
-		for(int i = 0; i < numLeftPlayer; i++)
-			addLabel(playerUp, 0, 0, false);
+		if(flipNum == 0)
+			for(int i = 0; i < rightPlayerHandTile.size(); i++)
+				addLabel(playerRight, rightPlayerHandTile.get(i).suit, rightPlayerHandTile.get(i).value + 1, true);
+		else{
+			for(int i = 0; i < numRightPlayer; i++)
+				addLabel(playerRight, 0, 0, true);
+		}
+		if(flipNum == 1){
+			for(int i = 0; i < upPlayerHandTile.size(); i++)
+				addLabel(playerUp, upPlayerHandTile.get(i).suit, upPlayerHandTile.get(i).value + 1, true);
+		}
+		else{
+			for(int i = 0; i < numUpPlayer; i++)
+				addLabel(playerUp, 0, 0, true);
+		}
+		if(flipNum == 2){
+			for(int i = 0; i < leftPlayerHandTile.size(); i++)
+				addLabel(playerLeft, leftPlayerHandTile.get(i).suit, leftPlayerHandTile.get(i).value + 1, true);
+		}
+		else{
+			for(int i = 0; i < numLeftPlayer; i++)
+				addLabel(playerLeft, 0, 0, false);
+		}
 		
 		for(int i = 0; i < tableTile.size(); i++)
 			addLabel(tablePanel, tableTile.get(i).suit, tableTile.get(i).value + 1, false);
@@ -754,13 +783,26 @@ class FrameTest extends JFrame {
 	}
 	public void actionFail()
 	{
-		JFrame frame = new JFrame ("行動失敗");
-		frame.setBounds(100, 100, 310, 221);
-		JPanel panel = new JPanel();
-		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		frame.setContentPane(panel);
-		panel.setLayout(null);
+		//JFrame frame = new JFrame ("行動失敗");
+		//frame.setBounds(100, 100, 310, 221);
+		//JPanel panel = new JPanel();
+		//panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		//frame.setContentPane(panel);
+		//panel.setLayout(null);
 		
+		
+		JDialog dialog = new JDialog ();
+        //dialog.setTitle("行動失敗");
+        dialog.setModal (true);
+        dialog.setAlwaysOnTop (true);
+        dialog.setModalityType (Dialog.ModalityType.APPLICATION_MODAL);
+        dialog.setDefaultCloseOperation (JDialog.DO_NOTHING_ON_CLOSE);
+        dialog.setBounds(100, 100, 310, 221);
+        
+        JPanel panel = new JPanel();
+		panel.setBorder(new EmptyBorder(5, 5, 5, 5));
+		panel.setLayout(null);
+		dialog.setContentPane(panel);
 		
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(0, 0, 294, 134);
@@ -777,13 +819,13 @@ class FrameTest extends JFrame {
 		JButton button = new JButton("確認");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				frame.dispose();
+				dialog.dispose();
 			}
 		});
 		button.setBounds(102, 10, 87, 23);
 		panel_2.add(button);
 		
-		frame.setVisible(true);
+		dialog.setVisible(true);
 	}
 	public void doChoice(boolean[] choice, JPanel panel_1)
 	{
@@ -905,7 +947,16 @@ class FrameTest extends JFrame {
 		newTile = _newTile;
 	}
 
-	
+	public void setFlip(int num, ArrayList<Tile> temp)
+	{
+		flipNum = num;
+		if(num == 0)
+			rightPlayerHandTile = temp;
+		else if(num == 1)
+			upPlayerHandTile = temp;
+		else if(num == 2)
+			leftPlayerHandTile = temp;
+	}
 	
 	
 	public void addTestHand()
