@@ -3,16 +3,15 @@ import java.util.*;
 
 public class AI extends Player{
 
-	private final int DONOTHING = 0 ;
-       	private final int DRAW = 1 ;
-       	private final int CHOW = 2 ;
-	private final int PONG = 3 ;
-	private final int KONG = 4 ;
-	private final int ADD_KONG = 5 ;
-	private final int CONCEAL_KONG = 6 ;
-	private final int RICHI = 7 ;
-	private final int RON = 8 ;
-	private final int HU = 9 ;
+       	private final int DRAW = 0 ;
+       	private final int CHOW = 1 ;
+	private final int PONG = 2 ;
+	private final int KONG = 3 ;
+	private final int ADD_KONG = 4 ;
+	private final int CONCEAL_KONG = 5 ;
+	private final int RICHI = 6 ;
+	private final int RON = 7 ;
+	private final int HU = 8 ;
 	private int exposed ;
 
 	public AI(int score){
@@ -292,7 +291,7 @@ public class AI extends Player{
 				return new Action(PONG, discard) ;
 			}
 			else
-				return new Action(DONOTHING, new ArrayList<Tile>()) ;
+				return null ;
 		}
 		else{// pong, kong, ron
 			if( hand.tingable(tile) != null ) /* huable */
@@ -311,7 +310,7 @@ public class AI extends Player{
 				return new Action(PONG, discard) ;
 			}
 			else
-				return new Action(DONOTHING, new ArrayList<Tile>()) ;
+				return null ;
 		}
 	}
 
