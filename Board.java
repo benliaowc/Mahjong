@@ -5,19 +5,36 @@ public class Board{
 	public static final int initScore = 25000;
 	public static final int games = 1;	//1東風戰 2東南戰...
 	public static int wind;	//0東 1南 2西 3北
+	public static String[] actionString = {
+	 "",
+	 "吃",
+	 "碰",
+	 "槓",
+	 "加槓",
+	 "暗槓",
+	 "立直",
+	 "榮",
+	 "胡"
+	};
 	public static int game;
 	public static int dealer; //一開始的莊家
 	private static Shuffler shuffler;
+	private static comGUI GUI;
 	public static void main(String args[]){
 		wind = 0;
 		dealer = 0;	//maybe we should decide this randomly?
 		game = 0;
 		shuffler = new Shuffler();
+		GUI = new comGUI();
 		Player[] player = new Player[4];
 		ArrayList<ArrayList<Tile>> allTiles = new ArrayList<ArrayList<Tile>>();//0萬 1筒 2條 3字
+		//GUI.initPlayerGUI("PlayerGUI", initScore);
+		//player[0] = GUI.player;
+		for(int i = 0; i < 4 ; i++){
+			player[i] = new AI("PlayerAI"+i, initScore);
+		}
 		for(int i = 0 ; i < 4 ; i++){
 			allTiles.add(new ArrayList<Tile>());
-			player[i] = new PlayerText("Player"+i, initScore);
 		}
 		while(true){
 
@@ -38,6 +55,7 @@ public class Board{
 			Tile tile = shuffler.getNext();
 			Action action = player[current].doSomething(0, tile);
 			while(gameOver == 0){
+				System.out.println("DEBUG: "+"wind: "+wind+"game: "+game+player[current]+actionString[action.type]+".");
 				switch(action.type){//執行動作
 					case 0:	//摸
 					case 1:	//吃
@@ -79,6 +97,7 @@ public class Board{
 						if(current != (dealer+game)%4){//當局莊家沒有連莊就要輪莊，進入下一局
 							game++;
 						}
+						shuffler.permuteIndex();
 						gameOver = 1;
 						//do something
 						break;
