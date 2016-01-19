@@ -39,6 +39,7 @@ public class Shuffler {
 			index[i] = tmp;
 		}
 		left = 14;
+		count = 0;
 	}
 
 	public void ackKong(){
@@ -50,7 +51,6 @@ public class Shuffler {
 		int next = index[count++];
 		if (count > index.length - left){
 			permuteIndex();
-			count = 0;
 			return null;
 		}
 		int suit = next/36;
