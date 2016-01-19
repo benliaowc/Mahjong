@@ -17,12 +17,14 @@ public class AI extends Player{
 	private final int HU = 8 ;
 	private int exposed ;
 	private Status status ;
+	private Tile prevTile ;
 	private Action prevAct ;
 
 	public AI(String name, int score){
 		super(name, score ) ;
 		exposed = 0 ;
 		status = Status.FREE ;
+		prevTile = null ;
 		prevAct = null ;
 	}
 
@@ -241,9 +243,13 @@ public class AI extends Player{
 
 	public Action doSomething(int from, Tile tile){ //from 0 draw 1 next 2 opposite 3 previous
 		if(from == 0){ //draw, richi, add kong, private kong, hu
-			if( doHu(tile) ) /* huable */
+			if( doHu(tile) ){ /* huable */
+				hand.add(tile) ;
+				prevTile = tile.same() ;
 				return win(HU) ;
+			}
 			else if( status == Status.RICHI ){
+				prevTile = tile.same() ;
 				ArrayList discardList = new ArrayList<Tile>() ;
 				discardList.add( tile ) ;
 
@@ -252,6 +258,9 @@ public class AI extends Player{
 			}
 			else if( doRichi(tile) ){
 				ArrayList<Tile> tingTile = hand.tingable(tile) ;
+				hand.add(tile) ;
+				prevTile = tile.same() ;
+
 				ArrayList<Tile> discardList = new ArrayList<Tile>() ;
 				Tile discardTile = tingTile.get(0) ;
 				discardList.add( discardTile ) ;
@@ -259,10 +268,12 @@ public class AI extends Player{
 
 				status = Status.RICHI ;
 				prevAct = new Action(RICHI, discardList) ;
-			       	return prevAct ;	
+				return prevAct ;	
 			}
 			else {
 				hand.add(tile) ;
+				prevTile = tile.same() ;
+
 				ArrayList<Tile> discardList = new ArrayList<Tile>() ;
 				Tile discardTile = decideDiscard(hand) ;
 				discardList.add( discardTile ) ;
@@ -273,14 +284,19 @@ public class AI extends Player{
 			}
 		}
 		else if(from == 3){//chow, pong, kong, ron
-			if( doHu(tile) )
+			if( doHu(tile) ){
+				hand.add(tile) ;
+				prevTile = tile.same() ;
 				return win(RON) ;
+			}
 			else if( status == Status.RICHI ){
 				prevAct = null ;
 				return prevAct ;
 			}
 			else if( doChow(tile) ){
 				int flag = hand.chowable(tile) ;
+				hand.add(tile) ;
+				prevTile = tile.same() ;
 				if( (flag & 0b001) > 0 ){
 					hand.discard(new Tile(tile.suit, tile.value, tile.index-2)) ;
 					hand.discard(new Tile(tile.suit, tile.value, tile.index-1)) ;
@@ -322,7 +338,7 @@ public class AI extends Player{
 					hand.discard(new Tile(tile.suit, tile.value, tile.index+1)) ;
 					hand.discard(new Tile(tile.suit, tile.value, tile.index+2)) ;
 					exposed++ ;
-					
+
 					Tile discardTile = decideDiscard(hand) ;
 					ArrayList<Tile> discardList = new ArrayList<Tile>() ;
 
@@ -337,6 +353,8 @@ public class AI extends Player{
 				}
 			}
 			else if( doPong(tile) ){
+				hand.add(tile) ;
+				prevTile = tile.same() ;
 				hand.discard(tile) ;
 				hand.discard(tile) ;
 				hand.discard(tile) ;
@@ -357,13 +375,18 @@ public class AI extends Player{
 				return null ;
 		}
 		else{// pong, kong, ron
-			if( doHu(tile) ) /* huable */
+			if( doHu(tile) ){ /* huable */
+				hand.add(tile) ;
+				prevTile = tile.same() ;
 				return win(RON) ;
+			}
 			else if( status == Status.RICHI ){
 				prevAct = null ;
 				return prevAct ;
 			}
 			else if( doPong(tile) ){
+				hand.add(tile) ;
+				prevTile = tile.same() ;
 				hand.discard(tile) ;
 				hand.discard(tile) ;
 				hand.discard(tile) ;
@@ -391,11 +414,13 @@ public class AI extends Player{
 			exposed-- ;
 		for( int i = 0 ; i < prevAct.tiles.size() ; i++ )
 			hand.add( prevAct.tiles.get(i) ) ;
+		hand.discard(prevTile) ;
 	}
 
 	public void GameOver(){
 		exposed = 0 ;
 		status = Status.FREE ;
+		prevTile = null ;
 		prevAct = null ;
 	}
 }
