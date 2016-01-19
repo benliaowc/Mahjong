@@ -135,6 +135,9 @@ public class Board{
 				System.out.println("self "+current+" "+tile+" "+tile.getSize());
 				action = player[current].doSomething(0, tile);
 			}
+			for(int i = 0 ; i < 4 ; i++){
+				player[i].GameOver();	//告知player game over.
+			}
 			if(game == 4){	//打滿4局，南(?入
 				wind = wind+1;
 				game = 0;
