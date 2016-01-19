@@ -45,9 +45,9 @@ public class AI extends Player{
 			Tile b = tmp.getAll().get(tile.suit).get(i+1);
 			Tile c = tmp.getAll().get(tile.suit).get(i+2);
 			if(a.index + 1 == b.index && b.index + 1 == c.index){
-				hand.discard(a) ;
-				hand.discard(b) ;
-				hand.discard(c) ;
+				tmp.discard(a) ;
+				tmp.discard(b) ;
+				tmp.discard(c) ;
 				s = tmp.getAll().get(tile.suit).size() ;
 				continue ;
 			}
@@ -82,9 +82,9 @@ public class AI extends Player{
 			Tile b = tmp.getAll().get(tile.suit).get(i+1);
 			Tile c = tmp.getAll().get(tile.suit).get(i+2);
 			if(a.index + 1 == b.index && b.index + 1 == c.index){
-				hand.discard(a) ;
-				hand.discard(b) ;
-				hand.discard(c) ;
+				tmp.discard(a) ;
+				tmp.discard(b) ;
+				tmp.discard(c) ;
 				s = tmp.getAll().get(tile.suit).size() ;
 				continue ;
 			}
@@ -244,7 +244,7 @@ public class AI extends Player{
 			}
 			else if( status == Status.RICHI ){
 				prevTile = tile.same() ;
-				ArrayList discardList = new ArrayList<Tile>() ;
+				ArrayList<Tile> discardList = new ArrayList<Tile>() ;
 				discardList.add( tile ) ;
 
 				prevAct = new Action(DRAW, discardList) ;
