@@ -20,6 +20,10 @@ class comGUI
 	private ArrayList<Tile> table;
 	private ArrayList<Tile> myPlayerHand;
 	
+	private ArrayList<Tile> rightPlayerHand;
+	private ArrayList<Tile> upPlayerHand;
+	private ArrayList<Tile> leftPlayerHand;
+	
 	public FrameTest frame;
 	
 	public comGUI.PlayerGUI player;
@@ -36,6 +40,10 @@ class comGUI
 		myPlayerOpen = new ArrayList<Tile>();
 		myPlayerHand = new ArrayList<Tile>();
 		table = new ArrayList<Tile>();
+		
+		leftPlayerHand = new ArrayList<Tile>();
+		upPlayerHand = new ArrayList<Tile>();
+		rightPlayerHand = new ArrayList<Tile>();
 		
 		frame = new FrameTest();
 		//player = new comGUI.PlayerGUI("A");
@@ -60,8 +68,9 @@ class comGUI
 		
 		int[] tempNum = new int[3];
 		tempNum[0] = numRightPlayer;
-		tempNum[1] = numLeftPlayer;
-		tempNum[2] = numUpPlayer;
+		tempNum[1] = numUpPlayer;
+		tempNum[2] = numLeftPlayer;
+		
 		
 		frame.setAllContent(temp, tempNum);
 		frame.reset();
@@ -112,6 +121,16 @@ class comGUI
 		else
 			numUpPlayerExposedKong = num;
 	}
+	public void flipTile(int index, ArrayList<Tile> tile)
+	{
+		if(index == 0)
+			frame.setFlip(index, rightPlayerHand);
+		else if(index == 1)
+			frame.setFlip(index, upPlayerHand);
+		else if(index == 2)
+			frame.setFlip(index, leftPlayerHand);
+	}
+	
 	
 	public void showGUI()
 	{
@@ -148,6 +167,7 @@ class comGUI
 		}
 		public void initTiles(ArrayList<Tile> t)
 		{
+			frame.setFlip(-1, new ArrayList<Tile>());
 			//myHand = new ArrayList<Tile>();
 			hand = new Hand();
 			
@@ -301,6 +321,8 @@ class comGUI
 				System.out.println(t);
 			hand.discard(discardTile.get(0));
 			c.renewGUI();
+			//failed();
+			//win();
 		}
 		private ArrayList<ArrayList<Tile>> getChewChoice(int flag, Tile newTile)
 		{
@@ -338,7 +360,14 @@ class comGUI
 					}
 		}
 		private void win()
-		{}
+		{
+			frame.hu(false);
+		}
+		
+		public void GameOver()
+		{
+			
+		}
 		
 		
 		
