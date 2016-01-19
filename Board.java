@@ -68,13 +68,15 @@ public class Board{
 					case 6:	//立直
 						tile = action.tiles.get(0);	//打出來的牌
 						Action selectAction = null;
-						int selectPlayer = 0;
+						int selectPlayer = null;
 						for(int i = 1 ; i < 4 ; i++){//問另外三家有沒有事情要做
 							int p = (current+i)%4;
+							System.out.println("wait "+p+" "+tile+" "+tile.getSize());
 							action = player[p].doSomething(4-p, tile);
 							if(action == null) continue;
-							if(selectPlayer == 0 || action.type > selectAction.type){
-								if(selectPlayer>0)player[selectPlayer].failed();
+							System.out.println(p+" "+actionString[action.type]);
+							if(selectPlayer == null || action.type > selectAction.type){
+								if(selectPlayer != null)player[selectPlayer].failed();
 								selectAction = action;
 								selectPlayer = p;
 							}
@@ -115,6 +117,7 @@ public class Board{
 					//do something
 					break;
 				}
+				System.out.println("self "+current+" "+tile+" "+tile.getSize());
 				action = player[current].doSomething(0, tile);
 			}
 			game = (game+1)%4;
