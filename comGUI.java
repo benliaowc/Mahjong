@@ -189,7 +189,7 @@ class comGUI
 
 		public Action doSomething(int from, Tile tile)
 		{
-			//System.out.println("Enter doSomething");
+			frame.resetChoice();
 			action = -1;
 			
 			//boolean[] b;
@@ -400,8 +400,7 @@ class comGUI
 		
 		public void GameOver()
 		{
-			//System.out.println("HU!!!");
-			EventQueue.invokeLater(new Runnable() {
+			/*EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
 						if(action == 7 || action == 8){
@@ -414,11 +413,12 @@ class comGUI
 						e.printStackTrace();
 					}
 				}
-			});
-			/*if(action == 7 || action == 8)
+			});*/
+			if(action == 7 || action == 8){
 				frame.hu(true);
+			}
 			else
-				frame.hu(false);*/
+				frame.hu(false);
 		}
 		
 		
