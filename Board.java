@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Board{
 	public static final int initScore = 25000;
-	public static final int games = 4;	//1東風戰 2東南戰...
+	public static final int games = 1;	//1東風戰 2東南戰...
 	public static int wind;	//0東 1南 2西 3北
 	public static String[] actionString = {
 	 "",
@@ -120,9 +120,9 @@ public class Board{
 				System.out.println("self "+current+" "+tile+" "+tile.getSize());
 				action = player[current].doSomething(0, tile);
 			}
-			game = (game+1)%4;
-			if(game == 0){	//打滿4局，南(?入
+			if(game == 4){	//打滿4局，南(?入
 				wind = wind+1;
+				game = 0;
 			}
 			if(wind == games)	//結束
 				break;
