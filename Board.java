@@ -49,6 +49,7 @@ public class Board{
 						for(int i = 1 ; i < 4 ; i++){//問另外三家有沒有事情要做
 							int p = (current+i)%4;
 							action = player[p].doSomething(4-p, tile);
+							if(action == null) continue;
 							if(selectAction == null || action.type > selectAction.type){
 								selectAction = action;
 								selectPlayer = p;
