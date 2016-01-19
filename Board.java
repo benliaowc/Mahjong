@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Board{
 	public static final int initScore = 25000;
-	public static final int games = 1;	//1東風戰 2東南戰...
+	public static final int games = 4;	//1東風戰 2東南戰...
 	public static int wind;	//0東 1南 2西 3北
 	public static String[] actionString = {
 	 "",
@@ -20,6 +20,11 @@ public class Board{
 	public static int dealer; //一開始的莊家
 	private static Shuffler shuffler;
 	private static comGUI GUI;
+	public static void printTiles(ArrayList<Tile> tiles){
+		for(Tile t:tiles){
+			System.out.print(t.toString()+t.getSize()+",");
+		}		
+	}
 	public static void main(String args[]){
 		wind = 0;
 		dealer = 0;	//maybe we should decide this randomly?
@@ -68,17 +73,14 @@ public class Board{
 							int p = (current+i)%4;
 							action = player[p].doSomething(4-p, tile);
 							if(action == null) continue;
-							if(selectAction == null || action.type > selectAction.type){
+							if(selectPlayer == 0 || action.type > selectAction.type){
+								if(selectPlayer>0)player[selectPlayer].failed();
 								selectAction = action;
 								selectPlayer = p;
 							}
+							else player[p].failed();
 						}
 						if(selectAction != null){//執行最優先動作, 榮>碰>吃, 設定好動作、玩家後continue跳到該玩家執行動作，未考慮同時榮的情形:p
-							for(int i = 1 ; i < 4 ; i++){
-								int p = (current+i)%4;
-								if(p == selectPlayer)continue;
-								player[p].failed();//告訴其他玩家他的上一個動作失敗了
-							}
 							action = selectAction;
 							current = selectPlayer;
 							continue;
@@ -94,6 +96,7 @@ public class Board{
 						break;	//目前玩家補一張，到switch外面抽牌、決定動作
 					case 7:	//榮
 					case 8:	//自摸
+						printTiles(action.tiles);
 						if(current != (dealer+game)%4){//當局莊家沒有連莊就要輪莊，進入下一局
 							game++;
 						}
@@ -114,9 +117,10 @@ public class Board{
 				}
 				action = player[current].doSomething(0, tile);
 			}
-
-			if(game == 4)	//打滿4局，南(?入
-				wind = (wind+1)%4;
+			game = (game+1)%4;
+			if(game == 0){	//打滿4局，南(?入
+				wind = wind+1;
+			}
 			if(wind == games)	//結束
 				break;
 		}

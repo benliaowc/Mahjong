@@ -20,7 +20,7 @@ public abstract class Player{
 		hand = new Hand(allTiles);
 	}
 	public abstract Action doSomething(int from, Tile tile);//from 0自摸 1下一家 2對家 3上一家
-	//	if(from == 0){//摸, 立直 加槓, 暗槓
+	//	if(from == 0){//摸, 立直 加槓, 暗槓, 胡
 	//		
 	//	}
 	//	else if(from == 3){//吃, 碰, 槓, 榮
