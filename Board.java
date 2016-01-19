@@ -68,15 +68,15 @@ public class Board{
 					case 6:	//立直
 						tile = action.tiles.get(0);	//打出來的牌
 						Action selectAction = null;
-						int selectPlayer = null;
+						int selectPlayer = -1;
 						for(int i = 1 ; i < 4 ; i++){//問另外三家有沒有事情要做
 							int p = (current+i)%4;
 							System.out.println("wait "+p+" "+tile+" "+tile.getSize());
 							action = player[p].doSomething(4-p, tile);
 							if(action == null) continue;
 							System.out.println(p+" "+actionString[action.type]);
-							if(selectPlayer == null || action.type > selectAction.type){
-								if(selectPlayer != null)player[selectPlayer].failed();
+							if(selectPlayer == -1 || action.type > selectAction.type){
+								if(selectPlayer != -1)player[selectPlayer].failed();
 								selectAction = action;
 								selectPlayer = p;
 							}
