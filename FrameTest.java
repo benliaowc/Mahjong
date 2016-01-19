@@ -424,7 +424,7 @@ class FrameTest extends JFrame {
 			panel.add(panel_2);
 			panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 			
-			String s = "AAAA";
+			String s = "你摸了";
 			if(thrower == 1)
 				s = "你的下家打了";
 			else if(thrower == 2)

@@ -223,7 +223,6 @@ class comGUI
 			//System.out.println(from +" "+ newTile);
 			//b[0] = true;
 			//tempType = 7;
-			b[4] = true;
 			frame.setChowOption(tempType, getChewChoice(tempType, newTile));
 			if(b[0] || b[1] || b[2] || b[3] || b[4]){
 				frame.setSelect(b);
