@@ -744,7 +744,11 @@ class mainGUI extends JFrame {
 		this.wind = wind;
 		this.game = game;
 		String[] windString = {"東", "南", "西", "北"};
-		String s = windString[wind] + game + "局";
+		String s;
+		if(game == -1)
+			s = "遊戲結束";
+		else
+			s = windString[wind] + game + "局";
 		lblWindgame.setText(s);
 	}
 	

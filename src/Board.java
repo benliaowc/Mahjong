@@ -165,8 +165,11 @@ public class Board{
 				wind = wind+1;
 				game = 0;
 			}
-			if(wind == games)	//結束
+			if(wind == games){	//結束
+				GUI.showWind(wind, -1);
+				GUI.renewGUI();
 				break;
+			}
 		}
 
 	}
