@@ -130,12 +130,18 @@ class comGUI
 	}
 	public void flipTile(int index, ArrayList<Tile> tile)
 	{
+		ArrayList<Tile> temp = new ArrayList<Tile>();
+		for(Tile t : tile)
+			for(int i = 0; i < t.getSize(); i++){
+				temp.add(new Tile(t.index));
+			}
+		
 		if(index == 0)
-			frame.setFlip(index, tile);
+			frame.setFlip(index, temp);
 		else if(index == 1)
-			frame.setFlip(index, tile);
+			frame.setFlip(index, temp);
 		else if(index == 2)
-			frame.setFlip(index, tile);
+			frame.setFlip(index, temp);
 		renewGUI();
 	}
 	
