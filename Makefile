@@ -7,7 +7,7 @@
 	javac -encoding utf8 -cp ./ -d ./ $<
 
 # Our .java files
-JAVAS = Tile.java Hand.java Shuffler.java Action.java Player.java AI.java FrameTest.java comGUI.java Board.java
+JAVAS = Tile.java Hand.java Shuffler.java Action.java Player.java AI.java mainGUI.java comGUI.java Board.java
 
 # .class files by replacing .java in $(JAVAS)
 classes: $(JAVAS:.java=.class)
