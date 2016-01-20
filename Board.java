@@ -136,6 +136,7 @@ public class Board{
 						}
 						shuffler.permuteIndex();
 						gameOver = 1;
+						if(current>0)GUI.flipTile(current-1, action.tiles);
 						for(int i = 0 ; i < 4 ; i++){
 							if(action.type == 7)
 								player[i].GameOver(1, (current-i+4)%4);	//告知player, current榮
