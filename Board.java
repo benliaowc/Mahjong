@@ -125,7 +125,12 @@ public class Board{
 						}
 						shuffler.permuteIndex();
 						gameOver = 1;
-						//do something
+						for(int i = 0 ; i < 4 ; i++){
+							if(action.type == 7)
+								player[i].GameOver(1, (current-i+4)%4);	//告知player, current榮
+							else
+								player[i].GameOver(2, (current-i+4)%4);	//告知player, current自摸
+						}
 						break;
 					default:
 						System.out.println("ERROR: "+player[current]+" unknown action "+action.type+".");
@@ -135,14 +140,13 @@ public class Board{
 				tile = shuffler.getNext();//switch外面指的是這裡^^
 				if(tile == null){//流局
 					gameOver = 1;
-					//do something
+					for(int i = 0 ; i < 4 ; i++){
+						player[i].GameOver(0, i);	//告知player流局
+					}
 					break;
 				}
 				System.out.println("self "+current+" "+tile+" "+tile.getSize());
 				action = player[current].doSomething(0, tile);
-			}
-			for(int i = 0 ; i < 4 ; i++){
-				player[i].GameOver();	//告知player game over.
 			}
 			if(game == 4){	//打滿4局，南(?入
 				wind = wind+1;
