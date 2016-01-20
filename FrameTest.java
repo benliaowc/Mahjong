@@ -281,7 +281,7 @@ class FrameTest extends JFrame {
 		button.setSelectedIcon(decideIcon(0, 0, false));
 		button.setPreferredSize(new java.awt.Dimension(30, 37));
 		panel.add(button);
-		renew();
+		//renew();
 	}
 	public void addButton(int suit, int value)
 	{
@@ -345,7 +345,7 @@ class FrameTest extends JFrame {
 		else
 			label.setPreferredSize(new java.awt.Dimension(30, 37));
 		panel.add(label);
-		renew();
+		//renew();
 		//table.add(label);
 	}
 	public ImageIcon decideIcon(int suit, int value, boolean fall)
