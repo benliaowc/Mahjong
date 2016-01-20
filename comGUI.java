@@ -326,9 +326,13 @@ class comGUI
 			}
 			else if(choice[4])
 			{
-				action = 7;
+				
 				if(from == 0)
 					action = 8;
+				else{
+					action = 7;
+					hand.add(newTile);
+				}
 				getHand();
 				//discardTile.set(0, myHand.get(0));
 				discardTile.remove(0);
