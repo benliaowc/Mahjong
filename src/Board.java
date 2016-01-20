@@ -166,9 +166,13 @@ public class Board{
 				game = 0;
 			}
 			if(wind == games){	//結束
-				GUI.showWind(wind, -1);
-				GUI.renewGUI();
-				break;
+				if(GUI.showWind(wind, -1)){
+					game = 0;
+					wind = 0;
+				}
+				else{
+					break;
+				}
 			}
 		}
 

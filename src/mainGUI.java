@@ -87,7 +87,9 @@ class mainGUI extends JFrame {
 	int wind = 0, game = 0;
 	
 	public volatile boolean ok;
+	public volatile boolean nok;
 	public ArrayList<Tile> push;
+	public boolean restart;
 	
 	/**
 	 * Launch the application.
@@ -745,10 +747,25 @@ class mainGUI extends JFrame {
 		this.game = game;
 		String[] windString = {"東", "南", "西", "北"};
 		String s;
-		if(game == -1)
+		if(game == -1){
 			s = "遊戲結束";
-		else
+			JToggleButton button = new JToggleButton("重來");
+			button.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					removeButton(throwPanel, button);
+					restart = true;
+					nok = true;
+				}
+			});
+			button.setBounds(31, 23, 70, 35);
+			//button.setPreferredSize(new java.awt.Dimension(30, 37));
+			throwPanel.add(button);
+			throwPanel.revalidate();
+			throwPanel.repaint();
+		}
+		else{
 			s = windString[wind] + game + "局";
+		}
 		lblWindgame.setText(s);
 	}
 	

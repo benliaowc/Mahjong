@@ -144,9 +144,16 @@ class comGUI
 			frame.setFlip(index, temp);
 		renewGUI();
 	}
-	public void showWind(int wind, int game)
+	public boolean showWind(int wind, int game)
 	{
 		frame.showWind(wind, game);
+		frame.nok = false;
+		if(game == -1){
+			while(frame.nok == false){}
+			System.out.println("restart");
+		}
+		else return false;
+		return frame.restart;
 	}
 	
 	
