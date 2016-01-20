@@ -131,11 +131,11 @@ class comGUI
 	public void flipTile(int index, ArrayList<Tile> tile)
 	{
 		if(index == 0)
-			frame.setFlip(index, rightPlayerHand);
+			frame.setFlip(index, tile);
 		else if(index == 1)
-			frame.setFlip(index, upPlayerHand);
+			frame.setFlip(index, tile);
 		else if(index == 2)
-			frame.setFlip(index, leftPlayerHand);
+			frame.setFlip(index, tile);
 	}
 	
 	
