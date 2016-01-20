@@ -19,14 +19,6 @@ public class Tile implements Comparable<Tile>{
 		size = 1;
 	}
 
-	public Tile(int s, int v, int i){
-		System.out.println("This Tile Constructor Deprecated");
-		suit = s;
-		value = v;
-		index = i;
-		size = 1;
-	}
-
 	public int getSize(){
 		return size;
 	}
