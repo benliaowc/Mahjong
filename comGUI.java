@@ -349,6 +349,7 @@ class comGUI
 				discardTile.remove(0);
 			}
 			else{
+				frame.showThrowTile(true);
 				//frame.changeEnable(true);
 				waitOK();
 				discardTile.set(0, pushTile.get(0));

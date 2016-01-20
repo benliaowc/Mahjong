@@ -33,6 +33,7 @@ import javax.swing.JDialog;
 import java.awt.Dialog;
 
 import java.util.ArrayList;
+import java.awt.Font;
 
 class FrameTest extends JFrame {
 
@@ -53,6 +54,9 @@ class FrameTest extends JFrame {
 	private JButton btnReset;
 	private JPanel tablePanel;
 	private JToggleButton tglbtnToggleButton;
+	
+	JPanel throwPanel;
+	JLabel lblThrowtile;
 	
 	
 	private ArrayList<Tile> rightPlayerOpenTile;
@@ -270,6 +274,7 @@ class FrameTest extends JFrame {
 				//removeButton(panel, button);
 				//addLabel(tablePanel, suit, value, false);
 				sendToBoard(suit, value);
+				showThrowTile(false);
 			}
 		});
 		button.setIcon(decideIcon(suit, value, false));
@@ -585,6 +590,11 @@ class FrameTest extends JFrame {
 		playerLeftOpen = new JPanel();
 		playerLeftOpen.setBounds(71, 62, 56, 499);
 		contentPane.add(playerLeftOpen);
+		
+		throwPanel = new JPanel();
+		throwPanel.setBounds(646, 571, 124, 84);
+		contentPane.add(throwPanel);
+		throwPanel.setLayout(null);
 		
 		/*btnReset = new JButton("reset");
 		btnReset.addActionListener(new ActionListener() {
@@ -956,6 +966,20 @@ class FrameTest extends JFrame {
 		for(int i = 0; i < 6; i++)
 			choice[i] = false;
 	}
+	public void showThrowTile(boolean throwTile)
+	{
+		if(throwTile){
+			lblThrowtile = new JLabel("請出牌");
+			lblThrowtile.setFont(new Font("微軟正黑體", Font.BOLD | Font.ITALIC, 18));
+			lblThrowtile.setForeground(Color.RED);
+			lblThrowtile.setBounds(31, 23, 70, 35);
+			throwPanel.add(lblThrowtile);
+		}
+		else{
+			removeLabel(throwPanel, lblThrowtile);
+		}
+	}
+	
 	
 	
 	public void addTestHand()
@@ -975,5 +999,4 @@ class FrameTest extends JFrame {
 		addButton(myPlayer, tablePanel, 3, 7);
 		addButton(myPlayer, tablePanel, 3, 7);
 	}
-	
 }
