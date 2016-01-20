@@ -136,6 +136,7 @@ class comGUI
 			frame.setFlip(index, tile);
 		else if(index == 2)
 			frame.setFlip(index, tile);
+		renewGUI();
 	}
 	
 	
