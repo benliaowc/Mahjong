@@ -35,6 +35,6 @@ public abstract class Player{
 		score+= s;
 	}
 
-	public abstract void GameOver(int status, int from);//status 0流局 1榮 2自摸 from 0自摸 1下一家 2對家 3上一家
+	public abstract void GameOver(int type, int from);//type 0流局 1榮 2自摸 from 0自摸 1下一家 2對家 3上一家
 
 }

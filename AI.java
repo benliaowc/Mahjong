@@ -411,7 +411,7 @@ public class AI extends Player{
 		hand.discard(prevTile) ;
 	}
 
-	public void GameOver(){
+	public void GameOver(int type, int from){
 		exposed = 0 ;
 		status = Status.FREE ;
 		prevTile = null ;
