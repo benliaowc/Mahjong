@@ -710,7 +710,7 @@ class FrameTest extends JFrame {
 		for(int i = 0; i < length; i++){
 			removeLabel(playerUpOpen, 0);
 		}
-		renew();
+		//renew();
 	}
 	
 	public void setAllContent(ArrayList<ArrayList<Tile>> temp, int[] tempNum)
