@@ -39,23 +39,22 @@ public class Shuffler {
 			index[i] = tmp;
 		}
 		left = 14;
+		count = 0;
 	}
 
 	public void ackKong(){
-	left++;
-}
+		left++;
+	}
 
 	public Tile getNext(){		
 		Tile res;				
 		int next = index[count++];
 		if (count > index.length - left){
 			permuteIndex();
-			count = 0;
 			return null;
 		}
-		int suit = next/36;
 	
-		res = new Tile(suit, (next % 36)/4, next/4);
+		res = new Tile(next/4);
 		
 		return res;
 	}

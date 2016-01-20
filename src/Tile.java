@@ -1,7 +1,7 @@
 import java.lang.*;
 import java.util.*;
 
-public class Tile implements Comparable<Tile> {
+public class Tile implements Comparable<Tile>{
 	
 	private String[] suit_dictionary = {"萬", "筒", "條"};
 	private String[] value_dictionary = {"一", "二", "三", "四", "五", "六", "七", "八", "九"};
@@ -12,9 +12,9 @@ public class Tile implements Comparable<Tile> {
 	public final int index;	
 	private int size;
 
-	public Tile(int s, int v, int i){
-		suit = s;
-		value = v;
+	public Tile(int i){
+		suit = i/9;
+		value = i%9;
 		index = i;
 		size = 1;
 	}
@@ -25,6 +25,10 @@ public class Tile implements Comparable<Tile> {
 
 	public void addSize(int s){
 		size += s;
+	}
+
+	public void setSize(int s){
+		size = s;
 	}
 	
 	public String toString(){
@@ -39,15 +43,30 @@ public class Tile implements Comparable<Tile> {
 		if(that instanceof Tile) {
 			return this.index == ((Tile)that).index;
 		}
-		return false;
-  }
-
-	@Override
-	public int compareTo(Tile that){
-		if(this.index < that.index)return -1;
-		if(this.index > that.index)return 1;
-		// maybe we should assert this.equals(that)==true here
-		return 0;
+		return false;	
 	}
 	
+	@Override
+	public int compareTo(Tile that) {
+		if(this.index > that.index) return 1;
+		if(this.index == that.index) return 0;
+		return -1;
+	}
+
+	public Tile same(){
+		Tile t = new Tile(index);
+		t.setSize(size);
+		return t;
+	}
+	public Tile same(int i){
+		if(suit != 3 && (value + i < 0 || value + i > 8)){
+			return null;		
+		}
+		if(suit == 3 && (value + i < 0 || value + i > 6)){
+			return null;		
+		}
+		Tile t = new Tile(index + i);
+		t.setSize(size);
+		return t;
+	}
 }
