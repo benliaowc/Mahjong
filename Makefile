@@ -3,17 +3,19 @@
 # Clear default targets for building .class from .java if any.
 .SUFFIXES: .java .class
 
-# Target for creating .class from .java
-.java.class:
-	javac $*.java
+./%.class: ./src/%.java
+	javac -cp ./ -d ./ $<
 
 # Our .java files
-JAVAS = Tile.java Hand.java Shuffler.java Board.java Player.java AI.java comGUI.java FrameTest.java
-
-default: classes
+JAVAS = Tile.java Hand.java Shuffler.java Action.java Player.java AI.java FrameTest.java comGUI.java Board.java
 
 # .class files by replacing .java in $(JAVAS)
 classes: $(JAVAS:.java=.class)
 
+default: classes
+
 clean:
 	rm -f *.class
+
+run: classes
+	java Board
