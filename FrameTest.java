@@ -839,7 +839,7 @@ class FrameTest extends JFrame {
 			chewOptionFrame();
 		}
 		else{
-			if(choice[1])
+			/*if(choice[1])
 				panel_1.add(new JLabel("碰"));
 			if(choice[2])
 				panel_1.add(new JLabel("槓"));
@@ -848,7 +848,7 @@ class FrameTest extends JFrame {
 			if(choice[4])
 				panel_1.add(new JLabel("胡"));
 			if(choice[5])
-				panel_1.add(new JLabel("不要"));
+				panel_1.add(new JLabel("不要"));*/
 			ack();
 		}
 	}

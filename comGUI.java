@@ -334,7 +334,7 @@ class comGUI
 			}
 			else{
 				if(from == 0)
-					action = 1;
+					action = 0;
 				else{
 					action = -1;
 					return;
@@ -353,11 +353,12 @@ class comGUI
 				//frame.changeEnable(true);
 				waitOK();
 				discardTile.set(0, pushTile.get(0));
+				hand.discard(discardTile.get(0));
 			}
 			for(Tile t: discardTile)
 				System.out.println(t);
 			
-			hand.discard(discardTile.get(0));
+			
 			frame.resetChoice();
 			c.renewGUI();
 		}
