@@ -4,7 +4,7 @@
 .SUFFIXES: .java .class
 
 ./%.class: ./src/%.java
-	javac -cp ./ -d ./ $<
+	javac -encoding utf8 -cp ./ -d ./ $<
 
 # Our .java files
 JAVAS = Tile.java Hand.java Shuffler.java Action.java Player.java AI.java FrameTest.java comGUI.java Board.java
