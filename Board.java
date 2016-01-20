@@ -34,6 +34,7 @@ public class Board{
 		Player[] player = new Player[4];
 		ArrayList<ArrayList<Tile>> allTiles = new ArrayList<ArrayList<Tile>>();//0萬 1筒 2條 3字
 		ArrayList<ArrayList<Tile>> table = new ArrayList<ArrayList<Tile>>();
+		int[] left = {0, 0, 0, 0};
 		GUI.initPlayerGUI("PlayerGUI", initScore, GUI);
 		player[0] = GUI.player;
 		table.add(new ArrayList<Tile>());	//河底
@@ -51,6 +52,8 @@ public class Board{
 			//init 4 players' hands and tables
 			for(int i = 0 ; i < 4 ; i++){
 				table.get(i+1).clear();//清空副露
+				left[i] = 13;//手牌13張
+				if(i>0)GUI.assignHandNum(i+1, left[i]);
 				for(int j = 0 ; j < 4 ; j++){
 					allTiles.get(j).clear();
 				}
@@ -74,6 +77,10 @@ public class Board{
 					case 1:	//吃
 					case 2:	//碰
 					case 6:	//立直
+						if(current>0){//手牌減少
+							left[current]-= (action.tiles.size()-1);
+							GUI.assignHandNum(current+1, left[current]);
+						}
 						for(int i = 1 ; i < action.tiles.size() ; i++){	//副露
 							table.get(current+1).add(action.tiles.get(i));
 						}
@@ -110,6 +117,10 @@ public class Board{
 					case 3:	//槓
 					case 4:	//加槓
 					case 5:	//暗槓
+						if(current>0){//手牌減少
+							left[current]-= (action.tiles.size());
+							GUI.assignHandNum(current+1, left[current]);
+						}
 						for(int i = 0 ; i < action.tiles.size() ; i++){	//槓從0開始算副露
 							table.get(current+1).add(action.tiles.get(i));
 						}
