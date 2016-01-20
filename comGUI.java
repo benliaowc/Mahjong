@@ -398,27 +398,14 @@ class comGUI
 					}
 		}
 		
-		public void GameOver()
+		public void GameOver(int type, int from)
 		{
-			/*EventQueue.invokeLater(new Runnable() {
-				public void run() {
-					try {
-						if(action == 7 || action == 8){
-							frame.hu(true);
-							c.renewGUI();
-						}
-						else
-							frame.hu(false);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-			});*/
-			if(action == 7 || action == 8){
-				frame.hu(true);
+			/*if(action == 7 || action == 8){
+				frame.hu(type, from);
 			}
 			else
-				frame.hu(false);
+				frame.hu(false);*/
+			frame.hu(type, from);
 		}
 		
 		

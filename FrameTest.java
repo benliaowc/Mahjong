@@ -599,7 +599,7 @@ class FrameTest extends JFrame {
 		contentPane.revalidate();
 		contentPane.repaint();
 	}
-	public void hu(boolean win)
+	public void hu(int type, int from)
 	{   
 		//changeEnable(false);
 		
@@ -623,13 +623,27 @@ class FrameTest extends JFrame {
 		panel.add(panel_1);
 		panel_1.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		if(win){
-			panel_1.add(new JLabel("你胡了!"));
+		String s = "";
+		if(type == 0){
+			s = "流局!";
 		}
 		else{
-			panel_1.add(new JLabel("總之你沒有胡 這局結束!"));
+			if(from == 0)
+				s = "你";
+			else if(from == 1)
+				s = "你的下家";
+			else if(from == 2)
+				s = "你的對家";
+			else
+				s = "你的上家";
+			
+			if(type == 1)
+				s += "榮了!";
+			else
+				s += "胡了!";
 		}
-		
+		panel_1.add(new JLabel(s));
+
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(0, 139, 294, 44);
 		panel.add(panel_2);
@@ -939,7 +953,7 @@ class FrameTest extends JFrame {
 	}
 	public void resetChoice()
 	{
-		for(int i = 0; i < 5; i++)
+		for(int i = 0; i < 6; i++)
 			choice[i] = false;
 	}
 	
