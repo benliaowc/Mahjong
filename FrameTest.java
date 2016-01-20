@@ -739,11 +739,11 @@ class FrameTest extends JFrame {
 		}
 		if(flipNum == 1){
 			for(int i = 0; i < upPlayerHandTile.size(); i++)
-				addLabel(playerUp, upPlayerHandTile.get(i).suit, upPlayerHandTile.get(i).value + 1, true);
+				addLabel(playerUp, upPlayerHandTile.get(i).suit, upPlayerHandTile.get(i).value + 1, false);
 		}
 		else{
 			for(int i = 0; i < numUpPlayer; i++)
-				addLabel(playerUp, 0, 0, true);
+				addLabel(playerUp, 0, 0, false);
 		}
 		if(flipNum == 2){
 			for(int i = 0; i < leftPlayerHandTile.size(); i++)
@@ -751,7 +751,7 @@ class FrameTest extends JFrame {
 		}
 		else{
 			for(int i = 0; i < numLeftPlayer; i++)
-				addLabel(playerLeft, 0, 0, false);
+				addLabel(playerLeft, 0, 0, true);
 		}
 		
 		for(int i = 0; i < tableTile.size(); i++)
