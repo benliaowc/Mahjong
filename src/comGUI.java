@@ -24,7 +24,7 @@ class comGUI
 	private ArrayList<Tile> upPlayerHand;
 	private ArrayList<Tile> leftPlayerHand;
 	
-	public FrameTest frame;
+	public mainGUI frame;
 	
 	public comGUI.PlayerGUI player;
 	
@@ -45,7 +45,7 @@ class comGUI
 		upPlayerHand = new ArrayList<Tile>();
 		rightPlayerHand = new ArrayList<Tile>();
 		
-		frame = new FrameTest();
+		frame = new mainGUI();
 		//player = new comGUI.PlayerGUI("A");
 	}
 	public void initPlayerGUI(String name, int score, comGUI _c)
@@ -143,6 +143,10 @@ class comGUI
 		else if(index == 2)
 			frame.setFlip(index, temp);
 		renewGUI();
+	}
+	public void showWind(int wind, int game)
+	{
+		frame.showWind(wind, game);
 	}
 	
 	
