@@ -63,6 +63,7 @@ public class Board{
 				}
 				player[i].initHand(allTiles);
 			}
+			GUI.showWind(wind, game+1);
 			GUI.renewGUI();
 			GUI.showGUI();
 			
