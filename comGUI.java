@@ -148,7 +148,7 @@ class comGUI
 	
 	public class PlayerGUI extends Player
 	{
-		public ArrayList<Tile> myHand;
+		public ArrayList<Tile> myHand = new ArrayList<Tile>();
 		//private Hand hand;
 		private Tile newTile;
 		private ArrayList<Tile> discardTile;
@@ -172,6 +172,9 @@ class comGUI
 		public void failed()
 		{
 			frame.actionFail();
+			for(int i = discardTile.size()-1; i > 0; i--)
+				hand.add(discardTile.get(i));
+			c.renewGUI();
 		}
 		
 		@Override
@@ -186,11 +189,9 @@ class comGUI
 
 		public Action doSomething(int from, Tile tile)
 		{
-			if(from == 0){
-				//myHand.add(tile);
-				hand.add(tile);
-				
-			}
+			frame.resetChoice();
+			action = -1;
+			
 			//boolean[] b;
 			newTile = tile.same();
 			doSelect(from, newTile);
@@ -206,7 +207,7 @@ class comGUI
 		private void doSelect(int from, Tile newTile)
 		{
 			//boolean[] b = {true, true, true, true, true};
-			boolean[] b = {false, false, false, false, false}; /*吃, 碰, 槓, 聽, 胡*/
+			boolean[] b = {false, false, false, false, false}; /*可做 吃, 碰, 槓, 聽, 胡*/
 			
 			int tempType = hand.chowable(newTile);
 			ArrayList<Tile> temp = hand.tingable(newTile);
@@ -225,6 +226,11 @@ class comGUI
 				b[4] = true;
 			else if(temp.size() != 0 && from == 0){
 				//b[3] = true;
+			}
+			
+			if(from == 0){
+				//myHand.add(tile);
+				hand.add(newTile);
 			}
 			frame.setThrower(from, newTile);
 			/*System.out.println("AAA " + from +" "+ newTile);
@@ -247,12 +253,6 @@ class comGUI
 				});
 				waitOK();
 			}
-			else if(from != 0){
-				action = -1;
-				return;
-			}
-			else
-				action = 0;
 			
 			choice = frame.getChoice();
 			selectProcess(tempType, newTile, from);
@@ -271,7 +271,7 @@ class comGUI
 				System.out.println(t);*/
 			frame.ok = false;
 			frame.push = new ArrayList<Tile>();
-			frame.changeEnable(false);
+			//frame.changeEnable(false);
 		}
 		/*private boolean remove(Tile t)
 		{
@@ -323,10 +323,22 @@ class comGUI
 				if(from == 0)
 					action = 8;
 				getHand();
-				discardTile.set(0, myHand.get(0));
-				for(int i = 1; i < myHand.size(); i++)
+				//discardTile.set(0, myHand.get(0));
+				discardTile.remove(0);
+				for(int i = 0; i < myHand.size(); i++)
 					discardTile.add(myHand.get(i));
+				
+				/*for(int i = 0; i < discardTile.size(); i++)
+					hand.discard(discardTile.get(i));*/
 				return;
+			}
+			else{
+				if(from == 0)
+					action = 1;
+				else{
+					action = -1;
+					return;
+				}
 			}
 			
 			for(int i = 1; i < discardTile.size() - 1; i++)
@@ -337,7 +349,7 @@ class comGUI
 				discardTile.remove(0);
 			}
 			else{
-				frame.changeEnable(true);
+				//frame.changeEnable(true);
 				waitOK();
 				discardTile.set(0, pushTile.get(0));
 			}
@@ -376,7 +388,9 @@ class comGUI
 		}
 		private void getHand()
 		{
-			myHand = new ArrayList<Tile>();
+			int length = myHand.size();
+			for(int i = 0; i < length; i++)
+				myHand.remove(0);
 			for(ArrayList<Tile> temp : hand.getAll())
 				for(Tile t : temp)
 					for(int i = 0; i < t.getSize(); i++){
@@ -386,18 +400,25 @@ class comGUI
 		
 		public void GameOver()
 		{
-			EventQueue.invokeLater(new Runnable() {
+			/*EventQueue.invokeLater(new Runnable() {
 				public void run() {
 					try {
-						if(action == 7 || action == 8)
+						if(action == 7 || action == 8){
 							frame.hu(true);
+							c.renewGUI();
+						}
 						else
 							frame.hu(false);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
-			});
+			});*/
+			if(action == 7 || action == 8){
+				frame.hu(true);
+			}
+			else
+				frame.hu(false);
 		}
 		
 		
