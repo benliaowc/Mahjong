@@ -4,4 +4,4 @@
 
 ## Introduction
 
-A mahjong program implemented in Java.
+A Mahjong program implemented in Java.
